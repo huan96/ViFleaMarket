@@ -47,4 +47,32 @@
     <string name="user_name">User Name</string>
     <string name="position">Position</string>
     <string name="skip">Skip</string>
+    <string name="iphone_6s">Iphone 6s</string>
+    <string name="_1_000_000">1.000.000 đ</string>
+    <string name="_11_10_qu_n_ho_ng_mai">11:10 | Quận Hoàng Mai</string>
+    <string name="VND">đ</string>
+    <string name="space"> | </string>
+    <string name="danh_muc">Danh mục</string>
+    <string name="loai_san_pham">Loại sản phẩm</string>
+    <string name="khu_vuc">Khu vực</string>
+    <string name="quan_huyen">Quận, huyện</string>
+    <string name="hinh_anh">Hình ảnh</string>
+    <string name="can_dang_it_nhat_1_anh">Bạn cần đăng ít nhất một hình</string>
+    <string name="chup_them_hinh">Chụp thêm hình để bán chạy hơn</string>
+    <string name="tiep_tuc">Tiếp tục</string>
+    <string name="infor_add_image">* Hình thật của sản phẩm sẽ tạo được niềm tin với người xem\n
+        * Hình chụp từ nhiều góc độ của sản phẩm \n
+        * Hình chụp cận cảnh những điểm nổi bật của sản phẩm\n
+        * Nên chụp rõ những điểm lưu ý của sản phẩm (VD: Vết xước nếu có..)\n
+        * Dung lượng ảnh không được quá 5Mb</string>
+    <string name="gia">Giá</string>
+    <string name="nhap_gia">Nhập giá tiền tại đây</string>
+    <string name="dong">đ</string>
+    <string name="gia_infor">*  Đa phần người xem sẽ không liên lạc khi bài đăng không có giá hoặc giá không hợp lý\n
+            *  Vì vậy hãy điền tổng giá tiền bằng VNĐ</string>
+    <string name="tieu_de">Tiêu đề</string>
+    <string name="tieu_de_infor">Điền tiêu đề rõ ràng để gây ấn tượng với người xem tin</string>
+    <string name="tieu_de_infor_2">* Nên dùng tiếng Việt có dấu.\n* Nêu ngắn gọn tên sản phẩm cùng tình trạng.</string>
+    <string name="mo_ta">Mô tả chi tiết</string>
+    <string name="mo_ta_chi_tiet_infor">Mô tả chi tiết (10-200 từ) bằng tiếng Việt để nêu rõ thông tin của sản phẩm cần đăng bán. Nhằm thu hút hơn số lượng người liên lạc.</string>
 </resources>

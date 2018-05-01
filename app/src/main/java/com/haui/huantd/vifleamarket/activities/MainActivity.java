@@ -2,15 +2,14 @@ package com.haui.huantd.vifleamarket.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.haui.huantd.vifleamarket.R;
 import com.haui.huantd.vifleamarket.adapters.PostListAdapter;
+import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.Account;
 import com.haui.huantd.vifleamarket.models.Product;
 
@@ -45,8 +45,11 @@ public class MainActivity extends AppCompatActivity
     private TextView tvName;
     private TextView tvInfo;
     private List<Product> listProduct;
+    private List<Product> listProductShow;
     private RecyclerView recyclerView;
     private PostListAdapter adapter;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initComponents() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         imgAvatar = header.findViewById(R.id.img_avatar);
@@ -77,16 +73,34 @@ public class MainActivity extends AppCompatActivity
         btnAddProduct = findViewById(R.id.btn_add_product);
         btnAddProduct.setOnClickListener(this);
         listProduct = new ArrayList<>();
+        listProductShow = new ArrayList<>();
         recyclerView = findViewById(R.id.rcv_post);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new PostListAdapter(listProduct, this, new PostListAdapter.OnItemClick() {
+        adapter = new PostListAdapter(recyclerView, listProductShow, this, new OnItemClick() {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(MainActivity.this, ShowProductActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("position", position);
-                bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) listProduct);
+                bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) listProductShow);
                 startActivity(intent);
+            }
+        });
+        adapter.setLoadMore(new PostListAdapter.ILoadMore() {
+            @Override
+            public void onLoadMore() {
+                listProductShow.add(null);
+                adapter.notifyItemInserted(listProductShow.size() - 1);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listProductShow.remove(listProductShow.size() - 1);
+                        adapter.notifyItemRemoved(listProductShow.size());
+                        addNewPost();
+                        adapter.notifyDataSetChanged();
+                        adapter.setLoaded();
+                    }
+                }, 300); // Time to load
             }
         });
         recyclerView.setAdapter(adapter);
@@ -97,9 +111,11 @@ public class MainActivity extends AppCompatActivity
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Product product = dataSnapshot.getValue(Product.class);
                 listProduct.add(product);
+                if (listProductShow.size() < 10) {
+                    listProductShow.add(product);
+                }
                 Log.e("MainActivity", product.getName());
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -123,6 +139,21 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    private void addNewPost() {
+        int sizeListProductShow = listProductShow.size() - 1;
+        int sizeListProduct = listProduct.size() - 1;
+        if ((sizeListProduct - sizeListProductShow) >= 10) {
+            int sizeListProductShowNew = sizeListProductShow + 10;
+            for (int i = sizeListProductShow; i < sizeListProductShowNew; i++) {
+                listProductShow.add(listProduct.get(i));
+            }
+        } else {
+            for (int i = sizeListProductShow; i < sizeListProduct; i++) {
+                listProductShow.add(listProduct.get(i));
+            }
+        }
     }
 
     @Override

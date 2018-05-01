@@ -1,0 +1,317 @@
+﻿[
+  {
+    "MaTinh": "01",
+    "Ten": "Hà Nội",
+    "Loai": "Thành Phố"
+  },
+  {
+    "MaTinh": "79",
+    "Ten": "Hồ Chí Minh",
+    "Loai": "Thành Phố"
+  },
+  {
+    "MaTinh": "31",
+    "Ten": "Hải Phòng",
+    "Loai": "Thành Phố"
+  },
+  {
+    "MaTinh": "48",
+    "Ten": "Đà Nẵng",
+    "Loai": "Thành Phố"
+  },
+  {
+    "MaTinh": "92",
+    "Ten": "Cần Thơ",
+    "Loai": "Thành Phố"
+  },
+  {
+    "MaTinh": "02",
+    "Ten": "Hà Giang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "04",
+    "Ten": "Cao Bằng",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "06",
+    "Ten": "Bắc Kạn",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "08",
+    "Ten": "Tuyên Quang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "10",
+    "Ten": "Lào Cai",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "11",
+    "Ten": "Điện Biên",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "12",
+    "Ten": "Lai Châu",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "14",
+    "Ten": "Sơn La",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "15",
+    "Ten": "Yên Bái",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "17",
+    "Ten": "Hòa Bình",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "19",
+    "Ten": "Thái Nguyên",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "20",
+    "Ten": "Lạng Sơn",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "22",
+    "Ten": "Quảng Ninh",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "24",
+    "Ten": "Bắc Giang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "25",
+    "Ten": "Phú Thọ",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "26",
+    "Ten": "Vĩnh Phúc",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "27",
+    "Ten": "Bắc Ninh",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "30",
+    "Ten": "Hải Dương",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "33",
+    "Ten": "Hưng Yên",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "34",
+    "Ten": "Thái Bình",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "35",
+    "Ten": "Hà Nam",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "36",
+    "Ten": "Nam Định",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "37",
+    "Ten": "Ninh Bình",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "38",
+    "Ten": "Thanh Hóa",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "40",
+    "Ten": "Nghệ An",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "42",
+    "Ten": "Hà Tĩnh",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "44",
+    "Ten": "Quảng Bình",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "45",
+    "Ten": "Quảng Trị",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "46",
+    "Ten": "Thừa Thiên Huế",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "49",
+    "Ten": "Quảng Nam",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "51",
+    "Ten": "Quảng Ngãi",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "52",
+    "Ten": "Bình Định",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "54",
+    "Ten": "Phú Yên",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "56",
+    "Ten": "Khánh Hòa",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "58",
+    "Ten": "Ninh Thuận",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "60",
+    "Ten": "Bình Thuận",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "62",
+    "Ten": "Kon Tum",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "64",
+    "Ten": "Gia Lai",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "66",
+    "Ten": "Đắk Lắk",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "67",
+    "Ten": "Đắk Nông",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "68",
+    "Ten": "Lâm Đồng",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "70",
+    "Ten": "Bình Phước",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "72",
+    "Ten": "Tây Ninh",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "74",
+    "Ten": "Bình Dương",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "75",
+    "Ten": "Đồng Nai",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "77",
+    "Ten": "Bà Rịa - Vũng Tàu",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "80",
+    "Ten": "Long An",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "82",
+    "Ten": "Tiền Giang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "83",
+    "Ten": "Bến Tre",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "84",
+    "Ten": "Trà Vinh",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "86",
+    "Ten": "Vĩnh Long",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "87",
+    "Ten": "Đồng Tháp",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "89",
+    "Ten": "An Giang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "91",
+    "Ten": "Kiên Giang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "93",
+    "Ten": "Hậu Giang",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "94",
+    "Ten": "Sóc Trăng",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "95",
+    "Ten": "Bạc Liêu",
+    "Loai": "Tỉnh"
+  },
+  {
+    "MaTinh": "96",
+    "Ten": "Cà Mau",
+    "Loai": "Tỉnh"
+  }
+]

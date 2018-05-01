@@ -1,0 +1,157 @@
+﻿[
+  {
+    "ID": "100",
+    "Ten": "Xe máy",
+    "MaDM": "1"
+  },
+  {
+    "ID": "101",
+    "Ten": "Ô tô",
+    "MaDM": "1"
+  },
+  {
+    "ID": "102",
+    "Ten": "Xe đạp",
+    "MaDM": "1"
+  },
+  {
+    "ID": "103",
+    "Ten": "Xe điện",
+    "MaDM": "1"
+  },
+  {
+    "ID": "104",
+    "Ten": "Xe tải",
+    "MaDM": "1"
+  },
+  {
+    "ID": "105",
+    "Ten": "Xe khác",
+    "MaDM": "1"
+  },
+  {
+    "ID": "106",
+    "Ten": "Phụ tùng xe",
+    "MaDM": "1"
+  },
+  {
+    "ID": "107",
+    "Ten": "Điện thoại",
+    "MaDM": "2"
+  },
+  {
+    "ID": "108",
+    "Ten": "Máy tính bảng",
+    "MaDM": "2"
+  },
+  {
+    "ID": "109",
+    "Ten": "Laptop",
+    "MaDM": "2"
+  },
+  {
+    "ID": "110",
+    "Ten": "Máy tính để bàn",
+    "MaDM": "2"
+  },
+  {
+    "ID": "111",
+    "Ten": "Máy ảnh, Máy quay",
+    "MaDM": "2"
+  },
+  {
+    "ID": "112",
+    "Ten": "Tivi, Loa, Amply",
+    "MaDM": "2"
+  },
+  {
+    "ID": "113",
+    "Ten": "Màn hình, Phụ kiện",
+    "MaDM": "2"
+  },
+  {
+    "ID": "114",
+    "Ten": "Quần áo",
+    "MaDM": "3"
+  },
+  {
+    "ID": "115",
+    "Ten": "Đồng hồ",
+    "MaDM": "3"
+  },
+  {
+    "ID": "116",
+    "Ten": "Giày dép",
+    "MaDM": "3"
+  },
+  {
+    "ID": "117",
+    "Ten": "Túi xách",
+    "MaDM": "3"
+  },
+  {
+    "ID": "118",
+    "Ten": "Nước hoa",
+    "MaDM": "3"
+  },
+  {
+    "ID": "119",
+    "Ten": "Phụ kiện thời trang khác",
+    "MaDM": "3"
+  },
+  {
+    "ID": "120",
+    "Ten": "Tủ lạnh, Máy lạnh, Máy giặt",
+    "MaDM": "5"
+  },
+  {
+    "ID": "121",
+    "Ten": "Nội ngoại thất, Cây cảnh",
+    "MaDM": "5"
+  },
+  {
+    "ID": "122",
+    "Ten": "Đồ gia dụng gia đình khác",
+    "MaDM": "5"
+  },
+  {
+    "ID": "123",
+    "Ten": "Âm nhạc, Phim, Sách",
+    "MaDM": "6"
+  },
+  {
+    "ID": "124",
+    "Ten": "Đồ thể thao, Dã ngoại",
+    "MaDM": "6"
+  },
+  {
+    "ID": "125",
+    "Ten": "Game, sở thích khác",
+    "MaDM": "6"
+  },
+  {
+    "ID": "126",
+    "Ten": "Gà",
+    "MaDM": "7"
+  },
+  {
+    "ID": "127",
+    "Ten": "Chó",
+    "MaDM": "7"
+  },
+  {
+    "ID": "128",
+    "Ten": "Chim",
+    "MaDM": "7"
+  },
+  {
+    "ID": "129",
+    "Ten": "Mèo",
+    "MaDM": "7"
+  },
+  {
+    "ID": "130",
+    "Ten": "Thú cưng khác, Phụ kiện",
+    "MaDM": "7"
+  }
+]
