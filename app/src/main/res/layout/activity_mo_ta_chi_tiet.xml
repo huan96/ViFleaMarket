@@ -63,6 +63,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_tiep_tuc"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/colorPrimary"

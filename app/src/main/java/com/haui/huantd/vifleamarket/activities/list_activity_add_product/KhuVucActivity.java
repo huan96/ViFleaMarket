@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.haui.huantd.vifleamarket.R;
-import com.haui.huantd.vifleamarket.activities.AddProductActivity;
 import com.haui.huantd.vifleamarket.adapters.TinhAdapter;
 import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.Tinh;
 import com.haui.huantd.vifleamarket.utils.Constants;
 import com.haui.huantd.vifleamarket.utils.DataManager;
+import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 
 import java.util.List;
 
@@ -63,6 +63,7 @@ public class KhuVucActivity extends AppCompatActivity {
                         HuyenActivity.class);
                 //truyen ID cua danh muc sang
                 intent.putExtra(Constants.TINH_THANH_PHO, mListTinh.get(position).getId());
+                PreferencesManager.saveTinh(mListTinh.get(position).getName(), KhuVucActivity.this);
                 startActivity(intent);
                 finish();
             }

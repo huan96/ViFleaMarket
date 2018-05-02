@@ -14,6 +14,7 @@ import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.DanhMuc;
 import com.haui.huantd.vifleamarket.utils.Constants;
 import com.haui.huantd.vifleamarket.utils.DataManager;
+import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class DanhMucActivity extends AppCompatActivity {
                         LoaiSanPhamActivity.class);
                 //truyen ID cua danh muc sang
                 intent.putExtra(Constants.DANH_MUC, mListDanhMuc.get(position).getId());
+                PreferencesManager.saveDanhMuc(mListDanhMuc.get(position).getName(), DanhMucActivity.this);
                 startActivity(intent);
                 finish();
             }

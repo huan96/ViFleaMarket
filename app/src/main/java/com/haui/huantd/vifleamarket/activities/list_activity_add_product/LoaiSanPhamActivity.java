@@ -15,6 +15,7 @@ import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.LoaiSanPham;
 import com.haui.huantd.vifleamarket.utils.Constants;
 import com.haui.huantd.vifleamarket.utils.DataManager;
+import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +85,7 @@ public class LoaiSanPhamActivity extends AppCompatActivity {
             public void onClick(int position) {
                 Intent intent = new Intent(LoaiSanPhamActivity.this,
                         KhuVucActivity.class);
+                PreferencesManager.saveLoaiSP(mListLoaiSP.get(position).getName(), LoaiSanPhamActivity.this);
                 startActivity(intent);
                 finish();
             }

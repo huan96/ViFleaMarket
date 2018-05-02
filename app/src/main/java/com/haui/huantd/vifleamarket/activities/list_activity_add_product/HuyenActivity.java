@@ -10,12 +10,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.haui.huantd.vifleamarket.R;
-import com.haui.huantd.vifleamarket.activities.AddProductActivity;
 import com.haui.huantd.vifleamarket.adapters.HuyenAdapter;
 import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.Huyen;
 import com.haui.huantd.vifleamarket.utils.Constants;
 import com.haui.huantd.vifleamarket.utils.DataManager;
+import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +94,8 @@ public class HuyenActivity extends AppCompatActivity {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(HuyenActivity.this,
-                        KhuVucActivity.class);
+                        AddImagesActivity.class);
+                PreferencesManager.saveHuyen(mListHuyen.get(position).getName(), HuyenActivity.this);
                 startActivity(intent);
                 finish();
             }
