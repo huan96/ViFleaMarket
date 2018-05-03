@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.haui.huantd.vifleamarket.R;
 import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.Product;
+import com.haui.huantd.vifleamarket.utils.Util;
 
 import java.util.List;
 
@@ -76,9 +77,16 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof ItemPost) {
             Product product = list.get(position);
             ItemPost viewHolder = (ItemPost) holder;
-            viewHolder.tvName.setText(product.getName());
-            viewHolder.tvPrice.setText(product.getPrice() + mContext.getString(R.string.VND));
-            viewHolder.tvInfo.setText(product.getTime() + mContext.getString(R.string.space) + product.getIdDistrict());
+            viewHolder.tvName.setText(product.getTieuDe());
+            viewHolder.tvPrice.setText(product.getGia() + mContext.getString(R.string.VND));
+            String thoiGian = Util.getThoiGian(product.getThoiGian());
+            String huyen = "null";
+            if (product.getHuyen().equals("")) {
+                huyen = product.getTinh();
+            } else {
+                huyen = product.getHuyen();
+            }
+            viewHolder.tvInfo.setText(thoiGian + mContext.getString(R.string.space) + huyen);
             Glide.with(mContext).load(product.getListImage().get(0)).apply(options).into(viewHolder.img);
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;

@@ -3,36 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="2dp"
+    android:paddingStart="8dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/img_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
-            android:padding="8dp"
+            android:padding="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_temp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="1"
                 android:maxLines="1"
                 android:text="@string/iphone_6s"
                 android:textColor="@color/text_black"
@@ -45,9 +43,9 @@
                 android:layout_below="@id/tv_name"
                 android:layout_marginTop="8dp"
                 android:maxLines="1"
-                android:text="@string/_1_000_000"
-                android:textColor="@color/text_price"
-                android:textSize="16sp" />
+                android:text="@string/v1_000_000"
+                android:textColor="#d42626"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_info"
@@ -55,10 +53,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_price"
                 android:maxLines="1"
-                android:layout_marginTop="4dp"
-                android:text="@string/_11_10_qu_n_ho_ng_mai"
+                android:text="@string/defauft_infor"
                 android:textColor="@color/colorTextItem"
                 android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
+
 </android.support.v7.widget.CardView>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,12 +16,14 @@ import android.widget.Toast;
 
 import com.haui.huantd.vifleamarket.R;
 import com.haui.huantd.vifleamarket.adapters.HinhAnhAdapter;
+import com.haui.huantd.vifleamarket.utils.ImageManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddImagesActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView btnBack, btnShow, btnAddImage;
+    private static final String TAG = "AddImagesActivity";
+    private ImageView btnBack, btnShow, btnAddImage, btnAddImage2;
     private LinearLayout layoutAddImage, layoutShowImage;
     private RecyclerView rvImage;
     private int PICK_IMAGE_MULTIPLE = 1;
@@ -39,6 +42,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         btnBack = findViewById(R.id.btn_back);
         btnShow = findViewById(R.id.btn_show);
         btnAddImage = findViewById(R.id.btn_add_image);
+        btnAddImage2 = findViewById(R.id.btn_add_img2);
         layoutAddImage = findViewById(R.id.layout_add_image);
         layoutShowImage = findViewById(R.id.layout_show_image);
         rvImage = findViewById(R.id.rv_images);
@@ -48,14 +52,12 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         btnShow.setOnClickListener(this);
         btnAddImage.setOnClickListener(this);
         btnTiepTuc.setOnClickListener(this);
+        btnAddImage2.setOnClickListener(this);
 
         imagesEncodedList = new ArrayList<>();
-
+        ImageManager imageManager = new ImageManager(this);
+        imagesEncodedList = imageManager.getAllImage();
         hinhAnhAdapter = new HinhAnhAdapter(imagesEncodedList, this, new HinhAnhAdapter.OnImageClick() {
-            @Override
-            public void onImageClick() {
-                addImage();
-            }
 
             @Override
             public void onDeleteClick(int position) {
@@ -75,7 +77,8 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        //load image tu csdl
+        Log.e(TAG, "onResume: " + imagesEncodedList.size());
+        showListImage();
     }
 
     @Override
@@ -102,12 +105,27 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                 addImage();
                 break;
             }
+            case R.id.btn_add_img2: {
+                addImage();
+                break;
+            }
 
         }
     }
 
     private void tiepTuc() {
         //luu list image sang csdl
+        if (imagesEncodedList.size() > 0) {
+            ImageManager imageManager = new ImageManager(this);
+            imageManager.deleteListImage();
+            for (String url : imagesEncodedList) {
+                imageManager.addImage(url);
+            }
+            startActivity(new Intent(AddImagesActivity.this, GiaActivity.class));
+            finish();
+        } else {
+            Toast.makeText(this, getString(R.string.them_anh), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -123,44 +141,40 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-
-
             if (requestCode == PICK_IMAGE_MULTIPLE) {
                 if (resultCode == Activity.RESULT_OK) {
                     if (data.getClipData() != null) {
                         int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
                         for (int i = 0; i < count; i++) {
+                            Log.e(TAG, "onActivityResult: getClipData");
                             Uri imageUri = data.getClipData().getItemAt(i).getUri();
                             imagesEncodedList.add(imageUri.toString());
                             //do something with the image (save it to some directory or whatever you need to do with it here)
                         }
                     } else if (data.getData() != null) {
+                        Log.e(TAG, "onActivityResult: getData");
                         String imagePath = data.getData().getPath();
                         imagesEncodedList.add(imagePath);
                         //do something with the image (save it to some directory or whatever you need to do with it here)
                     }
-
-                    if (imagesEncodedList.size() > 0) {
-                        showListImage();
-                    } else {
-                        Toast.makeText(this, "Chưa chọn hình ảnh nào!", Toast.LENGTH_SHORT).show();
-                        layoutShowImage.setVisibility(View.GONE);
-                        layoutAddImage.setVisibility(View.VISIBLE);
-                    }
+                    showListImage();
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Không thể chọn ảnh!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.khong_the_chon_anh, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void showListImage() {
-        layoutShowImage.setVisibility(View.VISIBLE);
-        layoutAddImage.setVisibility(View.GONE);
-        if (!imagesEncodedList.get(imagesEncodedList.size() - 1).equals("")) {
-            imagesEncodedList.add("");
+        if (imagesEncodedList.size() > 0) {
+            layoutShowImage.setVisibility(View.VISIBLE);
+            layoutAddImage.setVisibility(View.GONE);
+            hinhAnhAdapter.notifyDataSetChanged();
+            Log.e(TAG, "showListImage: " + imagesEncodedList.size());
+        } else {
+            Toast.makeText(this, R.string.chua_chon_anh, Toast.LENGTH_SHORT).show();
+            layoutShowImage.setVisibility(View.GONE);
+            layoutAddImage.setVisibility(View.VISIBLE);
         }
-        hinhAnhAdapter.notifyDataSetChanged();
-
     }
 }

@@ -1,48 +1,65 @@
 package com.haui.huantd.vifleamarket.activities;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.haui.huantd.vifleamarket.R;
-import com.haui.huantd.vifleamarket.activities.list_activity_add_product.AddProductActivity;
-import com.haui.huantd.vifleamarket.adapters.PostListAdapter;
-import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
-import com.haui.huantd.vifleamarket.models.Account;
-import com.haui.huantd.vifleamarket.models.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ShowListProductActivity extends AppCompatActivity {
 
-import de.hdodenhof.circleimageview.CircleImageView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_show_list_product);
+    }
+}
+/*
+}
+package com.haui.huantd.vifleamarket.activities;
+
+        import android.Manifest;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.os.Parcelable;
+        import android.support.annotation.NonNull;
+        import android.support.design.widget.NavigationView;
+        import android.support.v4.app.ActivityCompat;
+        import android.support.v4.content.ContextCompat;
+        import android.support.v4.view.GravityCompat;
+        import android.support.v4.widget.DrawerLayout;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.util.Log;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.ImageView;
+        import android.widget.TextView;
+        import android.widget.Toast;
+
+        import com.bumptech.glide.Glide;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.database.ChildEventListener;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.Query;
+        import com.google.firebase.database.ValueEventListener;
+        import com.haui.huantd.vifleamarket.R;
+        import com.haui.huantd.vifleamarket.activities.list_activity_add_product.AddProductActivity;
+        import com.haui.huantd.vifleamarket.adapters.PostListAdapter;
+        import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
+        import com.haui.huantd.vifleamarket.models.Account;
+        import com.haui.huantd.vifleamarket.models.Product;
+
+        import java.util.ArrayList;
+        import java.util.List;
+
+        import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -305,3 +322,4 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+*/

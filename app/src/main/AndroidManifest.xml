@@ -20,22 +20,29 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.InfoActivity" />
-        <activity android:name=".activities.AddProductActivity" />
+        <activity android:name=".activities.list_activity_add_product.AddProductActivity" />
         <activity android:name=".activities.ShowProductActivity" />
-        <activity android:name=".activities.list_activity_add_product.DanhMucActivity">
+        <activity android:name=".activities.list_activity_add_product.DanhMucActivity" />
+        <activity android:name=".activities.list_activity_add_product.LoaiSanPhamActivity" />
+        <activity android:name=".activities.list_activity_add_product.KhuVucActivity" />
+        <activity android:name=".activities.list_activity_add_product.HuyenActivity" />
+        <activity android:name=".activities.list_activity_add_product.AddImagesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.list_activity_add_product.LoaiSanPhamActivity" />
-        <activity android:name=".activities.list_activity_add_product.KhuVucActivity" />
-        <activity android:name=".activities.list_activity_add_product.HuyenActivity" />
-        <activity android:name=".activities.list_activity_add_product.AddImagesActivity" />
-        <activity android:name=".activities.list_activity_add_product.GiaActivity" />
-        <activity android:name=".activities.list_activity_add_product.TieuDeActivity" />
-        <activity android:name=".activities.list_activity_add_product.MoTaChiTietActivity"></activity>
+        <activity
+            android:name=".activities.list_activity_add_product.GiaActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities.list_activity_add_product.TieuDeActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities.list_activity_add_product.MoTaChiTietActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activities.ShowListProductActivity"></activity>
     </application>
 
 </manifest>

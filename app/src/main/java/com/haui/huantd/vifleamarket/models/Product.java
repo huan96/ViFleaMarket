@@ -10,44 +10,69 @@ import java.util.List;
  */
 
 public class Product implements Parcelable {
-    private String uid;
-    private String name;
-    private String idSeller;
-    private String price;
-    private String idType;
-    private String idCity;
-    private String idDistrict;
-    private String time;
-    private String note;
+    private String id;
+    private String tieuDe;
+    private String idNguoiBan;
+    private String gia;
+    private String danhMuc;
+    private String loaiSP;
+    private String tinh;
+    private String huyen;
+    private String thoiGian;
+    private String chiTiet;
     private List<String> listImage;
 
     public Product() {
     }
 
-    public Product(String uid, String name, String idSeller, String price, String idType, String idCity, String idDistrict, String time, String note, List<String> listImage) {
-        this.uid = uid;
-        this.name = name;
-        this.idSeller = idSeller;
-        this.price = price;
-        this.idType = idType;
-        this.idCity = idCity;
-        this.idDistrict = idDistrict;
-        this.time = time;
-        this.note = note;
+    public Product(String id, String tieuDe, String idNguoiBan, String gia, String danhMuc
+            , String loaiSP, String tinh, String huyen, String thoiGian, String chiTiet
+            , List<String> listImage) {
+        this.id = id;
+        this.tieuDe = tieuDe;
+        this.idNguoiBan = idNguoiBan;
+        this.gia = gia;
+        this.danhMuc = danhMuc;
+        this.loaiSP = loaiSP;
+        this.tinh = tinh;
+        this.huyen = huyen;
+        this.thoiGian = thoiGian;
+        this.chiTiet = chiTiet;
         this.listImage = listImage;
     }
 
     protected Product(Parcel in) {
-        uid = in.readString();
-        name = in.readString();
-        idSeller = in.readString();
-        price = in.readString();
-        idType = in.readString();
-        idCity = in.readString();
-        idDistrict = in.readString();
-        time = in.readString();
-        note = in.readString();
+        id = in.readString();
+        tieuDe = in.readString();
+        idNguoiBan = in.readString();
+        gia = in.readString();
+        danhMuc = in.readString();
+        loaiSP = in.readString();
+        tinh = in.readString();
+        huyen = in.readString();
+        thoiGian = in.readString();
+        chiTiet = in.readString();
         listImage = in.createStringArrayList();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(tieuDe);
+        dest.writeString(idNguoiBan);
+        dest.writeString(gia);
+        dest.writeString(danhMuc);
+        dest.writeString(loaiSP);
+        dest.writeString(tinh);
+        dest.writeString(huyen);
+        dest.writeString(thoiGian);
+        dest.writeString(chiTiet);
+        dest.writeStringList(listImage);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -62,76 +87,84 @@ public class Product implements Parcelable {
         }
     };
 
-    public String getUid() {
-        return uid;
+    public String getId() {
+        return id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTieuDe() {
+        return tieuDe;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTieuDe(String tieuDe) {
+        this.tieuDe = tieuDe;
     }
 
-    public String getIdSeller() {
-        return idSeller;
+    public String getIdNguoiBan() {
+        return idNguoiBan;
     }
 
-    public void setIdSeller(String idSeller) {
-        this.idSeller = idSeller;
+    public void setIdNguoiBan(String idNguoiBan) {
+        this.idNguoiBan = idNguoiBan;
     }
 
-    public String getPrice() {
-        return price;
+    public String getGia() {
+        return gia;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setGia(String gia) {
+        this.gia = gia;
     }
 
-    public String getIdType() {
-        return idType;
+    public String getDanhMuc() {
+        return danhMuc;
     }
 
-    public void setIdType(String idType) {
-        this.idType = idType;
+    public void setDanhMuc(String danhMuc) {
+        this.danhMuc = danhMuc;
     }
 
-    public String getIdCity() {
-        return idCity;
+    public String getLoaiSP() {
+        return loaiSP;
     }
 
-    public void setIdCity(String idCity) {
-        this.idCity = idCity;
+    public void setLoaiSP(String loaiSP) {
+        this.loaiSP = loaiSP;
     }
 
-    public String getIdDistrict() {
-        return idDistrict;
+    public String getTinh() {
+        return tinh;
     }
 
-    public void setIdDistrict(String idDistrict) {
-        this.idDistrict = idDistrict;
+    public void setTinh(String tinh) {
+        this.tinh = tinh;
     }
 
-    public String getTime() {
-        return time;
+    public String getHuyen() {
+        return huyen;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setHuyen(String huyen) {
+        this.huyen = huyen;
     }
 
-    public String getNote() {
-        return note;
+    public String getThoiGian() {
+        return thoiGian;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setThoiGian(String thoiGian) {
+        this.thoiGian = thoiGian;
+    }
+
+    public String getChiTiet() {
+        return chiTiet;
+    }
+
+    public void setChiTiet(String chiTiet) {
+        this.chiTiet = chiTiet;
     }
 
     public List<String> getListImage() {
@@ -140,24 +173,5 @@ public class Product implements Parcelable {
 
     public void setListImage(List<String> listImage) {
         this.listImage = listImage;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uid);
-        dest.writeString(name);
-        dest.writeString(idSeller);
-        dest.writeString(price);
-        dest.writeString(idType);
-        dest.writeString(idCity);
-        dest.writeString(idDistrict);
-        dest.writeString(time);
-        dest.writeString(note);
-        dest.writeStringList(listImage);
     }
 }

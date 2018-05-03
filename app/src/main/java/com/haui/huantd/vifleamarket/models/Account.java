@@ -13,16 +13,20 @@ public class Account {
     private String address;
     private String urlAvatar;
     private List<String> listProducts;
+    private List<String> listProductsConfirm;
 
     public Account() {
     }
 
-    public Account(String uid, String name, String phone, String address, String urlAvatar) {
+    public Account(String uid, String name, String phone, String address,
+                   String urlAvatar, List<String> listProducts, List<String> listProductsConfirm) {
         this.uid = uid;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.urlAvatar = urlAvatar;
+        this.listProducts = listProducts;
+        this.listProductsConfirm = listProductsConfirm;
     }
 
     public String getUid() {
@@ -71,5 +75,13 @@ public class Account {
 
     public void setListProducts(List<String> listProducts) {
         this.listProducts = listProducts;
+    }
+
+    public List<String> getListProductsConfirm() {
+        return listProductsConfirm;
+    }
+
+    public void setListProductsConfirm(List<String> listProductsConfirm) {
+        this.listProductsConfirm = listProductsConfirm;
     }
 }

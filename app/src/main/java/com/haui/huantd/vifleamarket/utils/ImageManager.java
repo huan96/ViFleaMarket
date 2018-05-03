@@ -49,7 +49,7 @@ public class ImageManager extends SQLiteOpenHelper {
     }
 
 
-    public void deleteListSong() {
+    public void deleteListImage() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);

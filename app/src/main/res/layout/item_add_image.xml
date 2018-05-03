@@ -8,22 +8,10 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="1dp">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/img_image"
         android:layout_width="86dp"
-        android:layout_height="86dp">
-
-        <ImageView
-            android:id="@+id/img_image"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:src="@drawable/ic_add_image" />
-
-        <ImageView
-            android:id="@+id/btn_delete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_delete" />
-    </RelativeLayout>
-
+        android:layout_height="86dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add_image" />
 </android.support.v7.widget.CardView>

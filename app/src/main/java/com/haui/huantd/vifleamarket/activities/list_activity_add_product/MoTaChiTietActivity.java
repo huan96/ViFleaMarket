@@ -39,7 +39,7 @@ public class MoTaChiTietActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back: {
-                Intent intent = new Intent(MoTaChiTietActivity.this, AddImagesActivity.class);
+                Intent intent = new Intent(MoTaChiTietActivity.this, TieuDeActivity.class);
                 startActivity(intent);
                 finish();
                 break;

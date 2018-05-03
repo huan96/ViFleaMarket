@@ -39,7 +39,7 @@ public class TieuDeActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back: {
-                Intent intent = new Intent(TieuDeActivity.this, AddImagesActivity.class);
+                Intent intent = new Intent(TieuDeActivity.this, GiaActivity.class);
                 startActivity(intent);
                 finish();
                 break;

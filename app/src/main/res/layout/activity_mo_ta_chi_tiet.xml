@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:gravity="left|top"
             android:hint="@string/mo_ta_chi_tiet_infor"
             android:padding="8dp"
             android:textColor="@color/text_black"

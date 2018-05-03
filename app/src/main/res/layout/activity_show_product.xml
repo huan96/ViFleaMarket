@@ -10,7 +10,7 @@
         android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="?attr/colorPrimary">
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/btn_back"

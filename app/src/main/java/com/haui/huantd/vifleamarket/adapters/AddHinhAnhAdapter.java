@@ -11,16 +11,17 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.haui.huantd.vifleamarket.R;
+import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 
 import java.util.List;
 
-public class HinhAnhAdapter extends RecyclerView.Adapter<HinhAnhAdapter.ItemHinhAnh> {
+public class AddHinhAnhAdapter extends RecyclerView.Adapter<AddHinhAnhAdapter.ItemHinhAnh> {
 
     private List<String> mListHinhAnh;
-    private OnImageClick onItemClick;
+    private OnItemClick onItemClick;
     private Context mContext;
 
-    public HinhAnhAdapter(List<String> mListHinhAnh, Context mContext, OnImageClick onItemClick) {
+    public AddHinhAnhAdapter(List<String> mListHinhAnh, Context mContext, OnItemClick onItemClick) {
         this.mListHinhAnh = mListHinhAnh;
         this.onItemClick = onItemClick;
         this.mContext = mContext;
@@ -29,18 +30,14 @@ public class HinhAnhAdapter extends RecyclerView.Adapter<HinhAnhAdapter.ItemHinh
     @NonNull
     @Override
     public ItemHinhAnh onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_image, parent, false);
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_add_image, parent, false);
         return new ItemHinhAnh(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemHinhAnh holder, int position) {
         String url = mListHinhAnh.get(position);
-        if (!url.equals("")) {
-            Glide.with(mContext).load(Uri.parse(url)).thumbnail((float) 0.1).into(holder.img);
-        } else {
-            holder.btnDelete.setVisibility(View.GONE);
-        }
+        Glide.with(mContext).load(Uri.parse(url)).thumbnail((float) 0.1).into(holder.img);
     }
 
     @Override
@@ -50,22 +47,17 @@ public class HinhAnhAdapter extends RecyclerView.Adapter<HinhAnhAdapter.ItemHinh
 
     class ItemHinhAnh extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView img;
-        ImageView btnDelete;
 
         public ItemHinhAnh(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img_image);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
-            btnDelete.setOnClickListener(this);
+            img.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            onItemClick.onDeleteClick(getLayoutPosition());
+            onItemClick.onClick(getLayoutPosition());
         }
     }
 
-    public interface OnImageClick {
-        void onDeleteClick(int position);
-    }
 }

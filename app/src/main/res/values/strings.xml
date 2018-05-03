@@ -75,4 +75,22 @@
     <string name="tieu_de_infor_2">* Nên dùng tiếng Việt có dấu.\n* Nêu ngắn gọn tên sản phẩm cùng tình trạng.</string>
     <string name="mo_ta">Mô tả chi tiết</string>
     <string name="mo_ta_chi_tiet_infor">Mô tả chi tiết (10-200 từ) bằng tiếng Việt để nêu rõ thông tin của sản phẩm cần đăng bán. Nhằm thu hút hơn số lượng người liên lạc.</string>
+    <string name="nhap_lai_gia">Đề nghị nhập lại giá</string>
+    <string name="nhap_tieu_de">Hãy nhập tiêu đề để bán hàng tốt hơn</string>
+    <string name="nhap_mo_ta">Hãy nhập mô tả chi tiết</string>
+    <string name="xem_lai">Xem lại bài đăng</string>
+    <string name="do_dien_tu">Đồ điện tử</string>
+    <string name="chua_co_thong_tin">Chưa có thông tin</string>
+    <string name="dang_ban">Đăng bán sản phẩm</string>
+    <string name="v1_000_000">1.000.000 đ</string>
+    <string name="defauft_infor">11:10 | Quận Hoàng Mai</string>
+    <string name="chua_chon_anh">Chưa chọn hình ảnh nào!</string>
+    <string name="khong_the_chon_anh">Không thể chọn ảnh!</string>
+    <string name="them_anh">Hãy thêm ảnh cho sản phẩm!</string>
+    <string name="hay_nhap_tieu_de">Hãy nhập tiêu đề!</string>
+    <string name="hay_nhap_gia">Hãy nhập giá!</string>
+    <string name="hay_nhap_mo_ta">Hãy nhập mô tả sản phẩm!</string>
+    <string name="hay_chon_danh_muc">Hãy chọn danh mục!</string>
+    <string name="hay_chon_khu_vuc">Hãy chọn khu vực!</string>
+    <string name="hay_them_anh">Hãy thêm ảnh cho sản phẩm</string>
 </resources>
