@@ -119,7 +119,6 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("imagePost").child((id + ".jpg"));
                 Log.e("xxx", String.valueOf(imageUri));
                 UploadTask uploadTask = storageRef.putFile(imageUri);
-
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
@@ -153,7 +152,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
 
 
     private void showListImage() {
-        String url = PreferencesManager.getUrlImage(this);
+        String url = PreferencesManager.getPathImage(this);
         if (!url.equals("")) {
             layoutShowImage.setVisibility(View.VISIBLE);
             layoutAddImage.setVisibility(View.GONE);

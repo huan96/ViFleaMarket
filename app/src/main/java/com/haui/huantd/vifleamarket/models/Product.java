@@ -1,15 +1,13 @@
 package com.haui.huantd.vifleamarket.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by huand on 02/10/18.
  */
 
-public class Product implements Parcelable {
+public class Product implements Serializable {
     private String id;
     private String tieuDe;
     private String idNguoiBan;
@@ -21,56 +19,9 @@ public class Product implements Parcelable {
     private String thoiGian;
     private String chiTiet;
     private String urlImage;
-
+    private boolean isConfirm;
     public Product() {
     }
-
-
-    protected Product(Parcel in) {
-        id = in.readString();
-        tieuDe = in.readString();
-        idNguoiBan = in.readString();
-        gia = in.readString();
-        danhMuc = in.readString();
-        loaiSP = in.readString();
-        tinh = in.readString();
-        huyen = in.readString();
-        thoiGian = in.readString();
-        chiTiet = in.readString();
-        urlImage = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(tieuDe);
-        dest.writeString(idNguoiBan);
-        dest.writeString(gia);
-        dest.writeString(danhMuc);
-        dest.writeString(loaiSP);
-        dest.writeString(tinh);
-        dest.writeString(huyen);
-        dest.writeString(thoiGian);
-        dest.writeString(chiTiet);
-        dest.writeString(urlImage);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
 
     public String getId() {
         return id;
@@ -188,5 +139,13 @@ public class Product implements Parcelable {
     public int hashCode() {
 
         return Objects.hash(id);
+    }
+
+    public boolean isConfirm() {
+        return isConfirm;
+    }
+
+    public void setConfirm(boolean confirm) {
+        isConfirm = confirm;
     }
 }

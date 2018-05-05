@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.haui.huantd.vifleamarket.activities.ShowProductActivity">
+    tools:context="com.haui.huantd.vifleamarket.activities.list_activity_show.ShowProductActivity">
 
     <RelativeLayout
         android:id="@+id/layout_toolbar"
@@ -174,7 +174,7 @@
                     <TextView
                         android:id="@+id/tv_khu_vuc"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
@@ -182,21 +182,23 @@
                         android:textColor="@color/text_black"
                         android:textSize="16sp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorLine" />
+
+                <TextView
+                    android:id="@+id/tv_mo_ta_chi_tiet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/demo_mo_ta" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/colorLine" />
 
-            <TextView
-                android:id="@+id/tv_mo_ta_chi_tiet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/infor_add_image" />
         </LinearLayout>
     </ScrollView>
 

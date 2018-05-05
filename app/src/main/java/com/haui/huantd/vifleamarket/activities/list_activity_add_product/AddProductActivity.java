@@ -3,10 +3,7 @@ package com.haui.huantd.vifleamarket.activities.list_activity_add_product;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,26 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.haui.huantd.vifleamarket.R;
-import com.haui.huantd.vifleamarket.adapters.AddHinhAnhAdapter;
-import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
 import com.haui.huantd.vifleamarket.models.Product;
 import com.haui.huantd.vifleamarket.utils.Constants;
-import com.haui.huantd.vifleamarket.utils.ImageManager;
 import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "AddProductActivity";
@@ -134,9 +121,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
         //them sp
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.NON_CONFIRM_POST);
-        String UserID = FirebaseAuth.getInstance().getUid();
+        String UserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Product product = new Product();
-        product.setIdNguoiBan(FirebaseAuth.getInstance().getUid());
+        product.setIdNguoiBan(FirebaseAuth.getInstance().getCurrentUser().getUid());
         product.setTieuDe(PreferencesManager.getTieuDe(this));
         product.setGia(PreferencesManager.getGia(this));
         product.setChiTiet(PreferencesManager.getThongTin(this));
@@ -148,10 +135,10 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.TIME_FORMMAT);
         Calendar cal = Calendar.getInstance();
         product.setThoiGian(dateFormat.format(cal.getTime()));
-        String id = FirebaseAuth.getInstance().getUid() + dateFormat.format(cal.getTime());
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid() + dateFormat.format(cal.getTime());
         databaseReference.child(id).setValue(product);
         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
-        databaseReference2.child(UserID).child(Constants.NON_CONFIRM_POST).child(id).setValue(id);
+        databaseReference2.child(UserID).child(Constants.LIST_POSTS).child(id).setValue(id);
         finish();
     }
 

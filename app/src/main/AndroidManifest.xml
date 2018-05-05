@@ -27,7 +27,7 @@
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.InfoActivity" />
         <activity android:name=".activities.list_activity_add_product.AddProductActivity" />
-        <activity android:name=".activities.ShowProductActivity" />
+        <activity android:name=".activities.list_activity_show.ShowProductActivity" />
         <activity android:name=".activities.list_activity_add_product.DanhMucActivity" />
         <activity android:name=".activities.list_activity_add_product.LoaiSanPhamActivity" />
         <activity android:name=".activities.list_activity_add_product.KhuVucActivity" />
@@ -43,8 +43,8 @@
             android:name=".activities.list_activity_add_product.MoTaChiTietActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.list_activity_show.ShowListProductActivity" />
-        <activity android:name=".activities.ListSellProductActivity" />
-        <activity android:name=".activities.ListFavouriteActivity"></activity>
+        <activity android:name=".activities.list_activity_show.ListSellProductActivity" />
+        <activity android:name=".activities.list_activity_show.ListFavouriteActivity"></activity>
     </application>
 
 </manifest>

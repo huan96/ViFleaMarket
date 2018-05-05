@@ -117,4 +117,11 @@
     <string name="laptop_dell_vostro_15">Laptop Dell Vostro 15</string>
     <string name="dang_huan">Đăng Huân</string>
     <string name="ho_ng_mai">Quận Hoàng Mai</string>
+    <string name="demo_mo_ta">Máy còn mới nguyên, vừa mới đập hộp cách đây 15 ngày, Không có nhu cầu dùng nữa nên bán</string>
+    <string name="san_pan_da_dang">Sản phẩm đã đăng</string>
+    <string name="da_duyet">Đã duyệt</string>
+    <string name="chua_duyet">Chưa duyệt</string>
+    <string name="canh_bao">Cảnh báo</string>
+    <string name="thuc_su_xoa">Bạn có thực sự muốn xóa?</string>
+    <string name="xoa">Xóa</string>
 </resources>

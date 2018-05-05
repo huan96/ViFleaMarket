@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,11 +35,9 @@ public class Util {
         String time2 = dateFormat.format(cal.getTime());
         String day1 = thoiGian.substring(0, 10);
         String day2 = time2.substring(0, 10);
-        Log.e("Util.getThoiGian", "getThoiGian: " + day1);
         if (!day1.equals(day2)) {
             return thoiGian.substring(0, 10);
         } else {
-            Log.e("Util.getThoiGian", "getThoiGian: " + thoiGian.substring(11, 15));
             return thoiGian.substring(11, 16);
         }
     }

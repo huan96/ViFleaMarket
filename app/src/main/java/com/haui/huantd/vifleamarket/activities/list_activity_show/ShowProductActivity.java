@@ -1,4 +1,4 @@
-package com.haui.huantd.vifleamarket.activities;
+package com.haui.huantd.vifleamarket.activities.list_activity_show;
 
 import android.Manifest;
 import android.content.Intent;
@@ -92,54 +92,57 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
         getInfor();
-        checkYeuThich();
     }
 
     private void checkYeuThich() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentAccount.getUid()).child(Constants.LIST_PRODUCT_LIKE);
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String id = dataSnapshot.getValue(String.class);
-                listLikeProduct.add(id);
-                Log.e(TAG, "onChildAdded: " + id);
-            }
+        try {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentAccount.getUid()).child(Constants.LIST_PRODUCT_LIKE);
+            databaseReference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    String id = (String) dataSnapshot.getValue();
+                    listLikeProduct.add(id);
+                    Log.e(TAG, "onChildAdded: " + id);
+                }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "checkYeuThich: " + e.toString());
+        }
     }
 
     private void getInfor() {
         try {
             Intent intent = getIntent();
-            product = intent.getParcelableExtra(Constants.PRODUCT);
+            product = (Product) intent.getBundleExtra(Constants.PRODUCT).getSerializable(Constants.PRODUCT);
             tvTieuDe.setText(product.getTieuDe());
             tvGia.setText(product.getGia() + " " + getString(R.string.VND));
             String thoiGian = Util.getThoiGian(product.getThoiGian());
+            tvThoiGian.setText(thoiGian);
             String huyen;
             if (product.getHuyen().equals("")) {
                 huyen = product.getTinh();
             } else {
-                huyen = product.getHuyen() + product.getTinh();
+                huyen = product.getHuyen() + ", " + product.getTinh();
             }
             tvKhuVuc.setText(huyen);
             tvMoTaChiTiet.setText(product.getChiTiet());
@@ -161,7 +164,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         // do with your result
-                        Log.e("have account", issue.getValue().toString());
+                        Log.e("showInforNguoiBan", issue.getValue().toString());
                         currentAccount = issue.getValue(Account.class);
                         setValues(currentAccount);
                     }
@@ -184,6 +187,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
         }
         sdt = values.getPhone();
         Glide.with(this).load(values.getUrlAvatar()).apply(options).into(imgNguoiBan);
+        checkYeuThich();
     }
 
     private void SendMessenger() {

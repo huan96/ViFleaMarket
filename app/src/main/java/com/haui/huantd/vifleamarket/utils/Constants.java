@@ -9,14 +9,15 @@ public class Constants {
     public static final String TITLE = "title";
     public static final String INFOR = "infor";
     public static final String NON_CONFIRM_POST = "non_confirm_post";
+    public static final String CONFIRM_POST = "ConfirmPosts";
     public static final String TIME_FORMMAT = "dd_MM_yyyy_HH:mm";
     public static final String TIME_FORMMAT2 = "dd_MM_yyyy_HH_mm";
     public static final String USERS = "users";
-    public static final String LIST_PRODUCT_CONFIRM = "listProductsConfirm";
+    public static final String LIST_POSTS = "listPosts";
     public static final String LIST_IMAGES = "listImages";
     public static final String URL_IMAGE = "urlImage";
     public static final String PATH_IMAGE = "pathImage";
 
     public static final String PRODUCT = "product";
-    public static final String LIST_PRODUCT_LIKE = "listProductLike";
+    public static final String LIST_PRODUCT_LIKE = "likePosts";
 }

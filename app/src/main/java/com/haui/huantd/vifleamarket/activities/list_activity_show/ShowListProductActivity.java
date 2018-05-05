@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.haui.huantd.vifleamarket.R;
-import com.haui.huantd.vifleamarket.activities.ShowProductActivity;
 import com.haui.huantd.vifleamarket.activities.SignInActivity;
 import com.haui.huantd.vifleamarket.activities.list_activity_add_product.AddProductActivity;
 import com.haui.huantd.vifleamarket.adapters.PostListAdapter;
@@ -37,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowListProductActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "ShowListProductActivity";
     private ImageView btnBack;
     private EditText edtSearch;
     private TextView btnTimKiem;
@@ -113,7 +113,9 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
             public void onClick(int position) {
                 Intent intent = new Intent(ShowListProductActivity.this, ShowProductActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.PRODUCT, listProductShow.get(position));
+                Log.e(TAG, "onClick: " + position + listProductShow.get(position).getTieuDe());
+                bundle.putSerializable(Constants.PRODUCT, listProductShow.get(position));
+                intent.putExtra(Constants.PRODUCT, bundle);
                 startActivity(intent);
             }
         });
@@ -189,7 +191,7 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
 
 
     private void setOnScrollRV() {
-        rvPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      /*  rvPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView rvPost, int dx, int dy) {
                 super.onScrolled(rvPost, dx, dy);
@@ -211,7 +213,7 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
                     }
                 }
             }
-        });
+        });*/
     }
 
     @Override
