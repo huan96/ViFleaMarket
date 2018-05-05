@@ -118,4 +118,54 @@ public class PreferencesManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(Constants.PATH_IMAGE, "");
     }
+
+
+    public static void saveDanhMuc2(String danhMuc, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.DANH_MUC + "2", danhMuc);
+        editor.commit();
+    }
+
+    public static String getDanhMuc2(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.DANH_MUC + "2", "");
+    }
+
+    public static void saveLoaiSP2(String loaiSP, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.LOAI_SAN_PHAM + "2", loaiSP);
+        editor.commit();
+    }
+
+    public static String getLoaiSP2(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.LOAI_SAN_PHAM + "2", "");
+    }
+
+    public static void saveTinh2(String tinh, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.TINH_THANH_PHO + "2", tinh);
+        editor.commit();
+    }
+
+    public static String getTinh2(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.TINH_THANH_PHO + "2", "");
+    }
+
+    public static void saveHuyen2(String huyen, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.HUYEN + "2", huyen);
+        editor.commit();
+    }
+
+    public static String getHuyen2(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.HUYEN + "2", "");
+    }
+
 }

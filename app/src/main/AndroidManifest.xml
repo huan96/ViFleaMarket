@@ -44,7 +44,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.list_activity_show.ShowListProductActivity" />
         <activity android:name=".activities.list_activity_show.ListSellProductActivity" />
-        <activity android:name=".activities.list_activity_show.ListFavouriteActivity"></activity>
+        <activity android:name=".activities.list_activity_show.ListFavouriteActivity" />
+        <activity android:name=".activities.list_activity_show.TimKiemDanhMucActivity" />
+        <activity android:name=".activities.list_activity_show.TimKhuVucActivity" />
+        <activity android:name=".activities.list_activity_show.TimHuyenActivity" />
+        <activity android:name=".activities.list_activity_show.TimLoaiSanPhamActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.haui.huantd.vifleamarket.activities.list_activity_add_product;
+package com.haui.huantd.vifleamarket.activities.list_activity_show;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +20,8 @@ import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoaiSanPhamActivity extends AppCompatActivity {
-    private static final String TAG = LoaiSanPhamActivity.class.getName();
+public class TimLoaiSanPhamActivity extends AppCompatActivity {
+    private static final String TAG = TimLoaiSanPhamActivity.class.getName();
     private List<LoaiSanPham> mListLoaiSP;
     private List<LoaiSanPham> mListLoaiSPShow;
     private ImageView btnClose;
@@ -60,9 +60,6 @@ public class LoaiSanPhamActivity extends AppCompatActivity {
             }
         }
         if (mListLoaiSPShow.size() == 0) {
-            Intent intent = new Intent(LoaiSanPhamActivity.this,
-                    KhuVucActivity.class);
-            startActivity(intent);
             finish();
         } else {
             showListLoaiSanPham();
@@ -74,19 +71,13 @@ public class LoaiSanPhamActivity extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoaiSanPhamActivity.this,
-                        DanhMucActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
         mLoaiSanPhamAdapter = new LoaiSanPhamAdapter(mListLoaiSPShow, this, new OnItemClick() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(LoaiSanPhamActivity.this,
-                        KhuVucActivity.class);
-                PreferencesManager.saveLoaiSP(mListLoaiSPShow.get(position).getName(), LoaiSanPhamActivity.this);
-                startActivity(intent);
+                PreferencesManager.saveLoaiSP2(mListLoaiSPShow.get(position).getName(), TimLoaiSanPhamActivity.this);
                 finish();
             }
         });

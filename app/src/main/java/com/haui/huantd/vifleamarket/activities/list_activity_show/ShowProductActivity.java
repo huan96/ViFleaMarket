@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,9 +30,6 @@ import com.haui.huantd.vifleamarket.models.Account;
 import com.haui.huantd.vifleamarket.models.Product;
 import com.haui.huantd.vifleamarket.utils.Constants;
 import com.haui.huantd.vifleamarket.utils.Util;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowProductActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ShowProductActivity";
@@ -48,8 +46,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
     private Account currentAccount;
     private RequestOptions options;
     private String sdt;
-    private boolean isYeuThich;
-    private List<String> listLikeProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,58 +73,36 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
         options.centerCrop();
         options.placeholder(R.drawable.spinner_background);
 
-        listLikeProduct = new ArrayList<>();
         btnCall.setOnClickListener(this);
         btnSend.setOnClickListener(this);
         swThich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                try {
+                    if (isChecked) {
+                        Log.e(TAG, "isCheck: ");
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.USERS)
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(Constants.LIST_PRODUCT_LIKE).child(product.getId());
+                        databaseReference.setValue(product.getId());
+                    } else {
+                        Log.e(TAG, "noCheck: ");
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.USERS)
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(Constants.LIST_PRODUCT_LIKE).child(product.getId());
+                        databaseReference.removeValue();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "onCheckedChanged: " + e.toString());
+                }
             }
         });
         btnBack.setOnClickListener(this);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         getInfor();
-    }
-
-    private void checkYeuThich() {
-        try {
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentAccount.getUid()).child(Constants.LIST_PRODUCT_LIKE);
-            databaseReference.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    String id = (String) dataSnapshot.getValue();
-                    listLikeProduct.add(id);
-                    Log.e(TAG, "onChildAdded: " + id);
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, "checkYeuThich: " + e.toString());
-        }
     }
 
     private void getInfor() {
@@ -156,7 +131,7 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void showInforNguoiBan(String idNguoiBan) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
         Query queryUser = databaseReference.orderByChild("uid").equalTo(idNguoiBan);
         queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -176,6 +151,46 @@ public class ShowProductActivity extends AppCompatActivity implements View.OnCli
 
             }
         });
+    }
+
+    private void checkYeuThich() {
+        try {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("users").child(currentAccount.getUid()).child(Constants.LIST_PRODUCT_LIKE);
+            databaseReference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    String id = (String) dataSnapshot.getValue();
+                    if (id.equals(product.getId())) {
+                        Log.e(TAG, "checkYeuThich: " + id);
+                        swThich.setChecked(true);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "checkYeuThich: " + e.toString());
+        }
+
     }
 
     private void setValues(Account values) {

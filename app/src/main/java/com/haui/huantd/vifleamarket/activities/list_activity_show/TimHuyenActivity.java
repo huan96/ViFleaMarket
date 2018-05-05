@@ -1,4 +1,4 @@
-package com.haui.huantd.vifleamarket.activities.list_activity_add_product;
+package com.haui.huantd.vifleamarket.activities.list_activity_show;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +20,8 @@ import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HuyenActivity extends AppCompatActivity {
-    private static final String TAG = HuyenActivity.class.getName();
+public class TimHuyenActivity extends AppCompatActivity {
+    private static final String TAG = TimHuyenActivity.class.getName();
     private List<Huyen> mListHuyen;
     private List<Huyen> mListHuyenShow;
     private ImageView btnBack;
@@ -41,7 +41,6 @@ public class HuyenActivity extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             String idTinh = intent.getStringExtra(Constants.TINH_THANH_PHO);
-            Log.d(TAG, "getData: " + idTinh);
             if (idTinh == null) {
                 finish();
             } else {
@@ -59,9 +58,9 @@ public class HuyenActivity extends AppCompatActivity {
         for (Huyen huyen : mListHuyen) {
             if (huyen.getIdTinh().equals(idTinh)) {
                 mListHuyenShow.add(huyen);
-                Log.d(TAG, "getListShow: " + huyen.getIdTinh());
             }
         }
+        Log.d(TAG, "getListShow: " + mListHuyenShow.size());
         if (mListHuyenShow.size() == 0) {
             finish();
         } else {
@@ -74,30 +73,16 @@ public class HuyenActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HuyenActivity.this,
-                        KhuVucActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
         btnShow = findViewById(R.id.btn_show);
-        btnShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HuyenActivity.this,
-                        AddProductActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        btnShow.setVisibility(View.INVISIBLE);
 
         mHuyenAdapter = new HuyenAdapter(mListHuyenShow, this, new OnItemClick() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(HuyenActivity.this,
-                        AddImagesActivity.class);
-                PreferencesManager.saveHuyen(mListHuyenShow.get(position).getName(), HuyenActivity.this);
-                startActivity(intent);
+                PreferencesManager.saveHuyen2(mListHuyenShow.get(position).getName(), TimHuyenActivity.this);
                 finish();
             }
         });

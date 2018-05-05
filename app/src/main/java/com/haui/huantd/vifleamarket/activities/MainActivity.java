@@ -31,17 +31,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.haui.huantd.vifleamarket.R;
 import com.haui.huantd.vifleamarket.activities.list_activity_add_product.AddProductActivity;
-import com.haui.huantd.vifleamarket.activities.list_activity_add_product.KhuVucActivity;
+import com.haui.huantd.vifleamarket.activities.list_activity_add_product.DanhMucActivity;
 import com.haui.huantd.vifleamarket.activities.list_activity_show.ListFavouriteActivity;
 import com.haui.huantd.vifleamarket.activities.list_activity_show.ListSellProductActivity;
 import com.haui.huantd.vifleamarket.activities.list_activity_show.ShowListProductActivity;
 import com.haui.huantd.vifleamarket.dialogs.RateAppDialog;
 import com.haui.huantd.vifleamarket.dialogs.TiepTucTinDialog;
 import com.haui.huantd.vifleamarket.models.Account;
-import com.haui.huantd.vifleamarket.utils.Constants;
+import com.haui.huantd.vifleamarket.models.DanhMuc;
+import com.haui.huantd.vifleamarket.utils.DataManager;
 import com.haui.huantd.vifleamarket.utils.PreferencesManager;
 import com.haui.huantd.vifleamarket.utils.TouchDetectableScrollView;
 import com.haui.huantd.vifleamarket.utils.Util;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -277,14 +280,27 @@ public class MainActivity extends AppCompatActivity
                 showFindProductActivity("10");
                 break;
             case R.id.btn_search:
-                showFindProductActivity("0");
+                PreferencesManager.saveDanhMuc2("", this);
+                PreferencesManager.saveLoaiSP2("", this);
+                PreferencesManager.saveTinh2("", this);
+                PreferencesManager.saveHuyen2("", this);
+                Intent intent = new Intent(this, ShowListProductActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
     private void showFindProductActivity(String danhmuc) {
+        List<DanhMuc> danhMucList = DataManager.getListDanhMuc(this);
+        int size = danhMucList.size();
+        for (int i = 0; i < size; i++) {
+            if (danhMucList.get(i).getId().equals(danhmuc)) {
+                PreferencesManager.saveDanhMuc2(danhMucList.get(i).getName(), this);
+                PreferencesManager.saveLoaiSP2("", this);
+                break;
+            }
+        }
         Intent intent = new Intent(this, ShowListProductActivity.class);
-        intent.putExtra(Constants.DANH_MUC, danhmuc);
         startActivity(intent);
     }
 
@@ -303,12 +319,12 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onTaoMoiClicked() {
                         Util.ResessPrefernces(MainActivity.this);
-                        startActivity(new Intent(MainActivity.this, KhuVucActivity.class));
+                        startActivity(new Intent(MainActivity.this, DanhMucActivity.class));
                     }
                 });
                 tiepTucTinDialog.show();
             } else {
-                startActivity(new Intent(MainActivity.this, KhuVucActivity.class));
+                startActivity(new Intent(MainActivity.this, DanhMucActivity.class));
             }
 
         }

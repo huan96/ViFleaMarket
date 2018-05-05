@@ -33,6 +33,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     private static int RESULT_LOAD_IMAGE = 1;
     private Button btnTiepTuc;
     private Uri imageUri;
+    private ImageView imgSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         layoutAddImage = findViewById(R.id.layout_add_image);
         layoutShowImage = findViewById(R.id.layout_show_image);
         btnTiepTuc = findViewById(R.id.btn_tiep_tuc);
+        imgSpinner = findViewById(R.id.img_spinner);
 
         btnBack.setOnClickListener(this);
         btnShow.setOnClickListener(this);
@@ -70,6 +72,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back: {
+                PreferencesManager.savePathImage("", this);
                 Intent intent = new Intent(AddImagesActivity.this, HuyenActivity.class);
                 startActivity(intent);
                 finish();
@@ -112,12 +115,13 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
             try {
                 imageUri = data.getData();
                 Glide.with(this).load(imageUri).into(imgShow);
+                Glide.with(this).load(R.drawable.spinner_background).into(imgSpinner);
                 PreferencesManager.savePathImage(imageUri.toString(), this);
                 SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.TIME_FORMMAT2);
                 Calendar cal = Calendar.getInstance();
-                String id = FirebaseAuth.getInstance().getUid() + dateFormat.format(cal.getTime());
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("imagePost").child((id + ".jpg"));
-                Log.e("xxx", String.valueOf(imageUri));
+                String id = FirebaseAuth.getInstance().getCurrentUser().getUid() + dateFormat.format(cal.getTime());
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(Constants.IMAGES_POSTS).child((id + ".jpg"));
+                Log.e(TAG, String.valueOf(imageUri));
                 UploadTask uploadTask = storageRef.putFile(imageUri);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -129,6 +133,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         PreferencesManager.saveUrlImage(downloadUrl.toString(), AddImagesActivity.this);
+                        imgSpinner.setVisibility(View.GONE);
                     }
                 });
             } catch (Exception e) {
@@ -146,7 +151,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, RESULT_LOAD_IMAGE);
         } catch (Exception exp) {
-            Log.i("Error", exp.toString());
+            Log.i(TAG, "getImageFromAlbum" + exp.toString());
         }
     }
 

@@ -24,13 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.haui.huantd.vifleamarket.R;
 import com.haui.huantd.vifleamarket.activities.SignInActivity;
 import com.haui.huantd.vifleamarket.activities.list_activity_add_product.AddProductActivity;
+import com.haui.huantd.vifleamarket.activities.list_activity_add_product.DanhMucActivity;
 import com.haui.huantd.vifleamarket.adapters.PostListAdapter;
+import com.haui.huantd.vifleamarket.dialogs.TiepTucTinDialog;
 import com.haui.huantd.vifleamarket.interfaces.OnItemClick;
-import com.haui.huantd.vifleamarket.models.DanhMuc;
 import com.haui.huantd.vifleamarket.models.Product;
 import com.haui.huantd.vifleamarket.utils.Constants;
-import com.haui.huantd.vifleamarket.utils.DataManager;
 import com.haui.huantd.vifleamarket.utils.PreferencesManager;
+import com.haui.huantd.vifleamarket.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,40 +49,46 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
     private List<Product> listProduct;
     private List<Product> listProductShow;
     private PostListAdapter adapter;
-    private String idDanhMuc;
     private String danhMuc, loai, ten, tinh, huyen;
-    private List<DanhMuc> danhMucList;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_list_product);
         setComponents();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume");
         initData();
+        timKiem();
     }
 
     private void initData() {
-        danhMucList = DataManager.getListDanhMuc(this);
-        Intent intent = getIntent();
-        if (intent != null) {
-            idDanhMuc = intent.getStringExtra(Constants.DANH_MUC);
-        }
-        if (idDanhMuc == null) {
-            idDanhMuc = "0";
-            danhMuc = "";
-        }
-        DanhMuc danhMuc1 = new DanhMuc(idDanhMuc);
-        if (danhMucList.contains(danhMuc1)) {
-            danhMuc = danhMucList.get(danhMucList.indexOf(danhMuc1)).getName();
+        danhMuc = PreferencesManager.getDanhMuc2(this);
+        loai = PreferencesManager.getLoaiSP2(this);
+        tinh = PreferencesManager.getTinh2(this);
+        huyen = PreferencesManager.getHuyen2(this);
+
+        if (!danhMuc.equals("")) {
             tvDanhMuc.setText(danhMuc);
         }
-        tinh = PreferencesManager.getTinh(this);
-        huyen = PreferencesManager.getHuyen(this);
+        if (!loai.equals("")) {
+            tvDanhMuc.setText(loai);
+        }
         if (!tinh.equals("")) {
             tvKhuVuc.setText(tinh);
-        } else {
+        }
+        if (!huyen.equals("")) {
             tvKhuVuc.setText(huyen);
+        }
+
+        ten = edtSearch.getText().toString();
+        if (ten == null) {
+            ten = "";
         }
     }
 
@@ -106,8 +113,9 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
 
         listProduct = new ArrayList<>();
         listProductShow = new ArrayList<>();
-
-        rvPost.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rvPost.setLayoutManager(layoutManager);
+        firstVisibleInListview = layoutManager.findFirstVisibleItemPosition();
         adapter = new PostListAdapter(rvPost, listProductShow, this, new OnItemClick() {
             @Override
             public void onClick(int position) {
@@ -137,18 +145,138 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
             }
         });
         rvPost.setAdapter(adapter);
+        setOnScrollRV();
+    }
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Constants.NON_CONFIRM_POST);
+    private void addProduct(DataSnapshot dataSnapshot) {
+        try {
+            Product product = dataSnapshot.getValue(Product.class);
+            product.setId(dataSnapshot.getKey());
+            Log.e(TAG, "addProduct: tinh: " + tinh + " Huyen: " + huyen + " danh muc: "
+                    + danhMuc + " Loai: " + huyen + " ten:" + ten);
+            Log.e(TAG, "addProduct: San Pham : tinh: " + product.getTinh() + " Huyen: "
+                    + product.getHuyen() + " danh muc: " + product.getDanhMuc() + " Loai: " +
+                    product.getLoaiSP() + " ten: " + product.getTieuDe())
+            ;
+            if (!danhMuc.equals("") && loai.equals("")) {
+                if (!product.getDanhMuc().equals(danhMuc))
+                    return;
+            }
+            if (!loai.equals("")) {
+                if (!product.getLoaiSP().equals(loai))
+                    return;
+            }
+            if (!tinh.equals("") && huyen.equals("")) {
+                if (!product.getTinh().equals(tinh))
+                    return;
+            }
+            if (!huyen.equals("")) {
+                if (!product.getTinh().equals(huyen))
+                    return;
+            }
+            ten = edtSearch.getText().toString();
+            if (!ten.equals("")) {
+                if (!product.getTieuDe().equals(ten))
+                    return;
+            }
+            listProduct.add(product);
+            if (listProductShow.size() < 10) {
+                listProductShow.add(product);
+            }
+            Log.e(TAG, "Them san pham vao list");
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            Log.e(TAG, "addProduct: " + e.toString());
+        }
+    }
+
+    private void addNewPost() {
+        int sizeListProductShow = listProductShow.size() - 1;
+        int sizeListProduct = listProduct.size() - 1;
+        if ((sizeListProduct - sizeListProductShow) >= 10) {
+            int sizeListProductShowNew = sizeListProductShow + 10;
+            for (int i = sizeListProductShow; i < sizeListProductShowNew; i++) {
+                listProductShow.add(listProduct.get(i));
+            }
+        } else {
+            for (int i = sizeListProductShow; i < sizeListProduct; i++) {
+                listProductShow.add(listProduct.get(i));
+            }
+        }
+    }
+
+    private static int firstVisibleInListview;
+
+
+    private void setOnScrollRV() {
+        rvPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView rvPost, int dx, int dy) {
+                super.onScrolled(rvPost, dx, dy);
+                if (listProductShow.size() < 10)
+                    return;
+                int currentFirstVisible = layoutManager.findFirstVisibleItemPosition();
+
+                if (currentFirstVisible > firstVisibleInListview) {
+                    Log.i("RecyclerView scrolled: ", "scroll up!");
+                    if (btnDangBan.getVisibility() == View.GONE) {
+                        btnDangBan.setVisibility(View.VISIBLE);
+                    }
+                    if (layoutSearch.getVisibility() == View.GONE) {
+                        layoutSearch.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    // Scrolling down
+                    if (btnDangBan.getVisibility() == View.VISIBLE) {
+                        btnDangBan.setVisibility(View.GONE);
+                    }
+                    if (layoutSearch.getVisibility() == View.VISIBLE) {
+                        layoutSearch.setVisibility(View.GONE);
+                    }
+                    Log.i("RecyclerView scrolled: ", "scroll down!");
+                }
+
+                firstVisibleInListview = currentFirstVisible;
+            }
+        });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_back:
+                finish();
+                break;
+            case R.id.btn_tim_kiem:
+                timKiem();
+                break;
+            case R.id.btn_loai_sp:
+                startActivity(new Intent(ShowListProductActivity.this, TimKiemDanhMucActivity.class));
+                break;
+            case R.id.btn_khu_vuc:
+                startActivity(new Intent(ShowListProductActivity.this, TimKhuVucActivity.class));
+                break;
+            case R.id.btn_dang_ban:
+                showActivityAddProduct();
+                break;
+
+        }
+    }
+
+
+    private void timKiem() {
+        //lay du lieu tu cac tv va edittext, sau do update du lieu
+        listProduct.clear();
+        listProductShow.clear();
+        adapter.notifyDataSetChanged();
+        adapter.setLoaded();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Constants.CONFIRM_POST);
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Product product = dataSnapshot.getValue(Product.class);
-                listProduct.add(product);
-                if (listProductShow.size() < 10) {
-                    listProductShow.add(product);
-                }
-                Log.e("onChildAdded", "xxxxxxxx");
-                adapter.notifyDataSetChanged();
+                addProduct(dataSnapshot);
+                Log.e(TAG, "onChildAdded:  addProduct");
             }
 
             @Override
@@ -171,81 +299,6 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
 
             }
         });
-        setOnScrollRV();
-    }
-
-    private void addNewPost() {
-        int sizeListProductShow = listProductShow.size() - 1;
-        int sizeListProduct = listProduct.size() - 1;
-        if ((sizeListProduct - sizeListProductShow) >= 10) {
-            int sizeListProductShowNew = sizeListProductShow + 10;
-            for (int i = sizeListProductShow; i < sizeListProductShowNew; i++) {
-                listProductShow.add(listProduct.get(i));
-            }
-        } else {
-            for (int i = sizeListProductShow; i < sizeListProduct; i++) {
-                listProductShow.add(listProduct.get(i));
-            }
-        }
-    }
-
-
-    private void setOnScrollRV() {
-      /*  rvPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView rvPost, int dx, int dy) {
-                super.onScrolled(rvPost, dx, dy);
-                if (dy > 0) {
-                    if (btnDangBan.getVisibility() == View.GONE) {
-                        btnDangBan.setVisibility(View.VISIBLE);
-                    }
-                    if (layoutSearch.getVisibility() == View.GONE) {
-                        layoutSearch.setVisibility(View.VISIBLE);
-                    }
-
-                } else {
-                    // Scrolling down
-                    if (btnDangBan.getVisibility() == View.VISIBLE) {
-                        btnDangBan.setVisibility(View.GONE);
-                    }
-                    if (layoutSearch.getVisibility() == View.VISIBLE) {
-                        layoutSearch.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });*/
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_back:
-                finish();
-                break;
-            case R.id.btn_tim_kiem:
-                timKiem();
-                break;
-            case R.id.btn_loai_sp:
-                themLoaiSP();
-                break;
-            case R.id.btn_khu_vuc:
-                themKhuVuc();
-                break;
-            case R.id.btn_dang_ban:
-                showActivityAddProduct();
-                break;
-
-        }
-    }
-
-    private void themKhuVuc() {
-    }
-
-    private void themLoaiSP() {
-    }
-
-    private void timKiem() {
-        //lay du lieu tu cac tv va edittext, sau do update du lieu
     }
 
     private void showActivityAddProduct() {
@@ -255,7 +308,25 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
             Toast.makeText(this, R.string.must_dang_nhap, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, SignInActivity.class));
         } else {
-            startActivity(new Intent(this, AddProductActivity.class));
+            if (!PreferencesManager.getDanhMuc(this).equals("")) {
+                TiepTucTinDialog tiepTucTinDialog = new TiepTucTinDialog(this, new TiepTucTinDialog.OnButtonClicked() {
+                    @Override
+                    public void onTiepTucClicked() {
+                        startActivity(new Intent(ShowListProductActivity.this, AddProductActivity.class));
+                    }
+
+                    @Override
+                    public void onTaoMoiClicked() {
+                        Util.ResessPrefernces(ShowListProductActivity.this);
+                        startActivity(new Intent(ShowListProductActivity.this, DanhMucActivity.class));
+                    }
+                });
+                tiepTucTinDialog.show();
+            } else {
+                startActivity(new Intent(ShowListProductActivity.this, DanhMucActivity.class));
+            }
+
         }
     }
+
 }

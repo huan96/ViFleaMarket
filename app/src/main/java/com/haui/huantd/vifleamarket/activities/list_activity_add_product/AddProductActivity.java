@@ -20,6 +20,7 @@ import com.haui.huantd.vifleamarket.R;
 import com.haui.huantd.vifleamarket.models.Product;
 import com.haui.huantd.vifleamarket.utils.Constants;
 import com.haui.huantd.vifleamarket.utils.PreferencesManager;
+import com.haui.huantd.vifleamarket.utils.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -139,6 +140,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         databaseReference.child(id).setValue(product);
         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
         databaseReference2.child(UserID).child(Constants.LIST_POSTS).child(id).setValue(id);
+
+        //reset
+        Util.ResessPrefernces(this);
         finish();
     }
 

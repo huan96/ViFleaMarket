@@ -20,4 +20,5 @@ public class Constants {
 
     public static final String PRODUCT = "product";
     public static final String LIST_PRODUCT_LIKE = "likePosts";
+    public static final String IMAGES_POSTS = "imagePosts";
 }
