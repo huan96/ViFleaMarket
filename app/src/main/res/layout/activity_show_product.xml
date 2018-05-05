@@ -19,36 +19,191 @@
             android:padding="16dp"
             android:src="@drawable/ic_back" />
 
-        <ImageView
-            android:id="@+id/btn_warning"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_alignParentRight="true"
-            android:padding="16dp"
-            android:src="@drawable/ic_warning" />
-
-        <ImageView
-            android:id="@+id/btn_lick"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_toLeftOf="@id/btn_warning"
-            android:padding="16dp"
-            android:src="@drawable/ic_like" />
+        <ToggleButton
+            android:id="@+id/sw_like"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_toggle"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/rv_show"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/layout_call"
         android:layout_below="@id/layout_toolbar">
 
-    </android.support.v4.view.ViewPager>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_product"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_dien_tu" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_tieu_de"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:maxLines="2"
+                    android:text="@string/laptop_dell_vostro_15"
+                    android:textColor="@color/text_black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_gia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/_1_000_000"
+                    android:textColor="#d42626"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_thoi_gian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lines="1"
+                    android:maxLines="2"
+                    android:text="20/12/2018"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorLine" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_avatar"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_temp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_ten_nguoi_ban"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="@string/dang_huan"
+                            android:textColor="@color/text_black"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/img_local"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_below="@id/tv_ten_nguoi_ban"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_place" />
+
+                        <TextView
+                            android:id="@+id/tv_dia_chi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_ten_nguoi_ban"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@id/img_local"
+                            android:maxLines="1"
+                            android:text="@string/ho_ng_mai"
+                            android:textColor="@color/colorTextItem"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorLine" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/khu_vuc"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_place" />
+
+                    <TextView
+                        android:id="@+id/tv_khu_vuc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:text="@string/ho_ng_mai"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorLine" />
+
+            <TextView
+                android:id="@+id/tv_mo_ta_chi_tiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/infor_add_image" />
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/layout_call"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true">
 
         <TextView
@@ -61,7 +216,7 @@
             android:text="@string/call"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/btn_send"
@@ -73,6 +228,6 @@
             android:text="@string/send"
             android:textAllCaps="true"
             android:textColor="@color/color_btn_call"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 </RelativeLayout>

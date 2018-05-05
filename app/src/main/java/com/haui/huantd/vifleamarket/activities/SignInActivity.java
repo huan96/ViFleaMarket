@@ -204,7 +204,7 @@ public class SignInActivity extends AppCompatActivity {
 
         //get values from phone edit text and pass to countryPicker
         ccp.registerPhoneNumberTextView(phoneNumber);
-        phone = ccp.getFullNumber();
+        phone = "+" + ccp.getFullNumber();
         boolean cancel = false;
         View focusView = null;
 

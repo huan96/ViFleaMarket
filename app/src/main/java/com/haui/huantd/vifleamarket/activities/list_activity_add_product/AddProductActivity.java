@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,14 +39,12 @@ import java.util.List;
 
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "AddProductActivity";
-    private ImageView btnClose, btnAddImage;
+    private ImageView btnClose, btnAddImage, imgShow;
     private LinearLayout layoutAddImage, layoutShowImage;
-    private RecyclerView rvImage;
     private TextView tvDanhMuc, tvLoaiSP, tvTinh, tvHuyen;
     private TextView tvGia, tvTieuDe, tvMoTa;
     private Button btnDangBan;
-    private List<String> listImage;
-    private AddHinhAnhAdapter hinhAnhAdapter;
+    private String urlImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         btnAddImage = findViewById(R.id.btn_add_image);
         layoutAddImage = findViewById(R.id.layout_add_image);
         layoutShowImage = findViewById(R.id.layout_show_image);
-        rvImage = findViewById(R.id.rv_images);
+        imgShow = findViewById(R.id.img_image);
         tvDanhMuc = findViewById(R.id.tv_danh_muc);
         tvLoaiSP = findViewById(R.id.tv_loai_sp);
         tvTinh = findViewById(R.id.tv_tinh);
@@ -79,15 +78,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         tvTieuDe.setOnClickListener(this);
         tvMoTa.setOnClickListener(this);
         btnDangBan.setOnClickListener(this);
-        listImage = new ArrayList<>();
-        hinhAnhAdapter = new AddHinhAnhAdapter(listImage, this, new OnItemClick() {
-            @Override
-            public void onClick(int position) {
-                startActivity(new Intent(AddProductActivity.this, AddImagesActivity.class));
-            }
-        });
-        rvImage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvImage.setAdapter(hinhAnhAdapter);
+        imgShow.setOnClickListener(this);
     }
 
 
@@ -98,28 +89,37 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.btn_add_image:
+            case R.id.img_image:
                 startActivity(new Intent(AddProductActivity.this, AddImagesActivity.class));
+                finish();
                 break;
             case R.id.tv_danh_muc:
                 startActivity(new Intent(AddProductActivity.this, DanhMucActivity.class));
+                finish();
                 break;
             case R.id.tv_loai_sp:
                 startActivity(new Intent(AddProductActivity.this, DanhMucActivity.class));
+                finish();
                 break;
             case R.id.tv_tinh:
                 startActivity(new Intent(AddProductActivity.this, KhuVucActivity.class));
+                finish();
                 break;
             case R.id.tv_huyen:
                 startActivity(new Intent(AddProductActivity.this, KhuVucActivity.class));
+                finish();
                 break;
             case R.id.tv_gia:
                 startActivity(new Intent(AddProductActivity.this, GiaActivity.class));
+                finish();
                 break;
             case R.id.tv_tieu_de:
                 startActivity(new Intent(AddProductActivity.this, TieuDeActivity.class));
+                finish();
                 break;
             case R.id.tv_mo_ta:
                 startActivity(new Intent(AddProductActivity.this, MoTaChiTietActivity.class));
+                finish();
                 break;
             case R.id.btn_dang_ban:
                 dangBan();
@@ -133,9 +133,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             return;
         }
         //them sp
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.NON_CONFIRM_POST);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.NON_CONFIRM_POST);
         String UserID = FirebaseAuth.getInstance().getUid();
-        final Product product = new Product();
+        Product product = new Product();
         product.setIdNguoiBan(FirebaseAuth.getInstance().getUid());
         product.setTieuDe(PreferencesManager.getTieuDe(this));
         product.setGia(PreferencesManager.getGia(this));
@@ -144,44 +144,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         product.setLoaiSP(PreferencesManager.getLoaiSP(this));
         product.setTinh(PreferencesManager.getTinh(this));
         product.setHuyen(PreferencesManager.getHuyen(this));
+        product.setUrlImage(PreferencesManager.getUrlImage(this));
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.TIME_FORMMAT);
         Calendar cal = Calendar.getInstance();
         product.setThoiGian(dateFormat.format(cal.getTime()));
-        final String id = FirebaseAuth.getInstance().getUid() + dateFormat.format(cal.getTime());
+        String id = FirebaseAuth.getInstance().getUid() + dateFormat.format(cal.getTime());
         databaseReference.child(id).setValue(product);
-
-
-        //them vao list hinh Anh
-        try {
-            int size = listImage.size();
-            for (int i = 0; i < size; i++) {
-                String imageUri = listImage.get(i);
-                String idImage = id + i;
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("imagePost").child((idImage + ".jpg"));
-                Log.e("Add_image", String.valueOf(imageUri));
-                UploadTask uploadTask = storageRef.putFile(Uri.parse(imageUri));
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String name = taskSnapshot.getMetadata().getName();
-                        String url = taskSnapshot.getDownloadUrl().toString();
-                        databaseReference.child(id).child(Constants.LIST_IMAGES).child(name).setValue(url);
-                    }
-                });
-            }
-
-        } catch (Exception e) {
-            Log.e(TAG, "dangBan: " + e.toString());
-        }
-
-        //them vao list bai dang chua xac nhan cua nguoi dung
         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
-        databaseReference2.child(UserID).child(Constants.LIST_PRODUCT_CONFIRM).child(id).setValue(id);
+        databaseReference2.child(UserID).child(Constants.NON_CONFIRM_POST).child(id).setValue(id);
         finish();
     }
 
@@ -206,7 +176,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(this, R.string.hay_chon_khu_vuc, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (listImage.size() == 0) {
+        if (PreferencesManager.getPathImage(this).equals("")) {
             Toast.makeText(this, R.string.hay_them_anh, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -223,20 +193,19 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         tvGia.setText(PreferencesManager.getGia(this));
         tvTieuDe.setText(PreferencesManager.getTieuDe(this));
         tvMoTa.setText(PreferencesManager.getThongTin(this));
-
-        listImage.clear();
-        ImageManager imageManager = new ImageManager(this);
-        listImage.addAll(imageManager.getAllImage());
-        Log.e(TAG, "onResume: " + listImage.size());
         showListImage();
     }
 
+
     private void showListImage() {
-        if (listImage.size() > 0) {
+        String url = PreferencesManager.getPathImage(this);
+        if (!url.equals("")) {
             layoutShowImage.setVisibility(View.VISIBLE);
             layoutAddImage.setVisibility(View.GONE);
-            hinhAnhAdapter.notifyDataSetChanged();
+            Glide.with(this).load(Uri.parse(url)).into(imgShow);
+            Log.e(TAG, "showListImage: ");
         } else {
+            Toast.makeText(this, R.string.chua_chon_anh, Toast.LENGTH_SHORT).show();
             layoutShowImage.setVisibility(View.GONE);
             layoutAddImage.setVisibility(View.VISIBLE);
         }
@@ -244,40 +213,3 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 }
 
 
-   /* protected void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            try {
-                imageUri = data.getData();
-                RequestOptions options = new RequestOptions();
-                options.centerCrop();
-                Glide.with(this).load(imageUri).apply(options).into(img);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
-                Calendar cal = Calendar.getInstance();
-                String id = FirebaseAuth.getInstance().getUid() + dateFormat.format(cal.getTime());
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("imagePost").child((id + ".jpg"));
-                Log.e("xxx", String.valueOf(imageUri));
-                UploadTask uploadTask = storageRef.putFile(imageUri);
-
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        downloadUrl = taskSnapshot.getDownloadUrl();
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            Toast.makeText(this, R.string.no_selected_photo, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-} */

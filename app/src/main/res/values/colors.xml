@@ -11,8 +11,9 @@
     <color name="colorLine">#cecece</color>
     <color name="colorTextStar">#ff7047</color>
     <color name="colorTextValue">#252525</color>
-    <color name="color_btn_call">#62ff20</color>
+    <color name="color_btn_call">#43a61a</color>
     <color name="color_btn_send">#efefef</color>
     <color name="color_price">#c40000</color>
     <color name="text_black">#000</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

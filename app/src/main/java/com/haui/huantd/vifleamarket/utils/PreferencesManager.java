@@ -94,4 +94,28 @@ public class PreferencesManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(Constants.INFOR, "");
     }
+
+    public static void saveUrlImage(String url, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.URL_IMAGE, url);
+        editor.commit();
+    }
+
+    public static String getUrlImage(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.URL_IMAGE, "");
+    }
+
+    public static void savePathImage(String path, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.PATH_IMAGE, path);
+        editor.commit();
+    }
+
+    public static String getPathImage(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(Constants.PATH_IMAGE, "");
+    }
 }

@@ -17,7 +17,13 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.InfoActivity" />
         <activity android:name=".activities.list_activity_add_product.AddProductActivity" />
@@ -26,13 +32,7 @@
         <activity android:name=".activities.list_activity_add_product.LoaiSanPhamActivity" />
         <activity android:name=".activities.list_activity_add_product.KhuVucActivity" />
         <activity android:name=".activities.list_activity_add_product.HuyenActivity" />
-        <activity android:name=".activities.list_activity_add_product.AddImagesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.list_activity_add_product.AddImagesActivity" />
         <activity
             android:name=".activities.list_activity_add_product.GiaActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -42,7 +42,9 @@
         <activity
             android:name=".activities.list_activity_add_product.MoTaChiTietActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activities.ShowListProductActivity"></activity>
+        <activity android:name=".activities.list_activity_show.ShowListProductActivity" />
+        <activity android:name=".activities.ListSellProductActivity" />
+        <activity android:name=".activities.ListFavouriteActivity"></activity>
     </application>
 
 </manifest>

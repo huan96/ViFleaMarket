@@ -1,6 +1,9 @@
 package com.haui.huantd.vifleamarket.utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -31,15 +34,49 @@ public class Util {
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.TIME_FORMMAT);
         Calendar cal = Calendar.getInstance();
         String time2 = dateFormat.format(cal.getTime());
-        String day1 = thoiGian.substring(0, 9);
-        String day2 = time2.substring(0, 9);
+        String day1 = thoiGian.substring(0, 10);
+        String day2 = time2.substring(0, 10);
         Log.e("Util.getThoiGian", "getThoiGian: " + day1);
-        if (day1.equals(day2)) {
-            return thoiGian.substring(0, 9);
+        if (!day1.equals(day2)) {
+            return thoiGian.substring(0, 10);
         } else {
             Log.e("Util.getThoiGian", "getThoiGian: " + thoiGian.substring(11, 15));
-            return thoiGian.substring(11, 15);
+            return thoiGian.substring(11, 16);
         }
+    }
+
+    public static void rateApp(Context context) {
+        Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            context.startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + context.getPackageName())));
+        }
+    }
+
+    public static void shareApp(Context context) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                "http://play.google.com/store/apps/details?id="
+                        + context.getPackageName());
+        context.startActivity(shareIntent);
+    }
+
+    public static void ResessPrefernces(Context context) {
+        PreferencesManager.saveTieuDe("", context);
+        PreferencesManager.savePathImage("", context);
+        PreferencesManager.saveUrlImage("", context);
+        PreferencesManager.saveThongTin("", context);
+        PreferencesManager.saveDanhMuc("", context);
+        PreferencesManager.saveLoaiSP("", context);
+        PreferencesManager.saveGia("", context);
     }
 
 

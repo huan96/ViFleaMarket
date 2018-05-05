@@ -7,50 +7,221 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.haui.huantd.vifleamarket.R;
+import com.haui.huantd.vifleamarket.models.Account;
+import com.haui.huantd.vifleamarket.models.Product;
+import com.haui.huantd.vifleamarket.utils.Constants;
+import com.haui.huantd.vifleamarket.utils.Util;
 
-public class ShowProductActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShowProductActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "ShowProductActivity";
     private TextView btnCall, btnSend;
+    private ImageView btnBack;
+    private ToggleButton swThich;
+    private ImageView imgProduct;
+    private ImageView imgNguoiBan;
+    private TextView tvTieuDe, tvGia, tvThoiGian;
+    private TextView tvTenNguoiBan, tvDiaChiNguoiBan;
+    private TextView tvKhuVuc;
+    private TextView tvMoTaChiTiet;
+    private Product product;
+    private Account currentAccount;
+    private RequestOptions options;
+    private String sdt;
+    private boolean isYeuThich;
+    private List<String> listLikeProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_product);
-        initComponet();
+        initComponent();
     }
 
-    private void initComponet() {
+    private void initComponent() {
         btnCall = findViewById(R.id.btn_call);
         btnSend = findViewById(R.id.btn_send);
-        btnCall.setOnClickListener(new View.OnClickListener() {
+        btnBack = findViewById(R.id.btn_back);
+        swThich = findViewById(R.id.sw_like);
+        imgProduct = findViewById(R.id.img_product);
+        imgNguoiBan = findViewById(R.id.img_avatar);
+        tvThoiGian = findViewById(R.id.tv_thoi_gian);
+        tvGia = findViewById(R.id.tv_gia);
+        tvTenNguoiBan = findViewById(R.id.tv_ten_nguoi_ban);
+        tvTieuDe = findViewById(R.id.tv_tieu_de);
+        tvDiaChiNguoiBan = findViewById(R.id.tv_dia_chi);
+        tvKhuVuc = findViewById(R.id.tv_khu_vuc);
+        tvMoTaChiTiet = findViewById(R.id.tv_mo_ta_chi_tiet);
+        options = new RequestOptions();
+        options.centerCrop();
+        options.placeholder(R.drawable.spinner_background);
+
+        listLikeProduct = new ArrayList<>();
+        btnCall.setOnClickListener(this);
+        btnSend.setOnClickListener(this);
+        swThich.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:0978323053"));
-                if (ActivityCompat.checkSelfPermission(ShowProductActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });
+        btnBack.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInfor();
+        checkYeuThich();
+    }
+
+    private void checkYeuThich() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(currentAccount.getUid()).child(Constants.LIST_PRODUCT_LIKE);
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String id = dataSnapshot.getValue(String.class);
+                listLikeProduct.add(id);
+                Log.e(TAG, "onChildAdded: " + id);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void getInfor() {
+        try {
+            Intent intent = getIntent();
+            product = intent.getParcelableExtra(Constants.PRODUCT);
+            tvTieuDe.setText(product.getTieuDe());
+            tvGia.setText(product.getGia() + " " + getString(R.string.VND));
+            String thoiGian = Util.getThoiGian(product.getThoiGian());
+            String huyen;
+            if (product.getHuyen().equals("")) {
+                huyen = product.getTinh();
+            } else {
+                huyen = product.getHuyen() + product.getTinh();
+            }
+            tvKhuVuc.setText(huyen);
+            tvMoTaChiTiet.setText(product.getChiTiet());
+            Glide.with(this).load(product.getUrlImage()).apply(options).into(imgProduct);
+
+            String idNguoiBan = product.getIdNguoiBan();
+            showInforNguoiBan(idNguoiBan);
+        } catch (Exception e) {
+            Log.e(TAG, "getInfor: " + e.toString());
+        }
+    }
+
+    private void showInforNguoiBan(String idNguoiBan) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+        Query queryUser = databaseReference.orderByChild("uid").equalTo(idNguoiBan);
+        queryUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        // do with your result
+                        Log.e("have account", issue.getValue().toString());
+                        currentAccount = issue.getValue(Account.class);
+                        setValues(currentAccount);
+                    }
                 }
-                startActivity(callIntent);
             }
-        });
-        btnSend.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("smsto:0978323053");
-                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                it.putExtra("sms_body", "The SMS text");
-                startActivity(it);
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
+    }
+
+    private void setValues(Account values) {
+        if (values.getName() != null) {
+            tvTenNguoiBan.setText(values.getName());
+        }
+        if (values.getAddress() != null) {
+            tvDiaChiNguoiBan.setText(values.getAddress());
+        }
+        sdt = values.getPhone();
+        Glide.with(this).load(values.getUrlAvatar()).apply(options).into(imgNguoiBan);
+    }
+
+    private void SendMessenger() {
+        if (sdt == null || sdt.equals("")) {
+            Toast.makeText(this, "Không thể nhắn tin!", Toast.LENGTH_SHORT).show();
+        } else {
+            Uri uri = Uri.parse("smsto:" + sdt);
+            Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+            it.putExtra("sms_body", "The SMS text");
+            startActivity(it);
+        }
+    }
+
+    private void Call() {
+        if (sdt == null || sdt.equals("")) {
+            Toast.makeText(this, "Không thể gọi!", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + sdt));
+            if (ActivityCompat.checkSelfPermission(ShowProductActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            startActivity(callIntent);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_call:
+                Call();
+                break;
+            case R.id.btn_send:
+                SendMessenger();
+                break;
+            case R.id.btn_back:
+                finish();
+                break;
+        }
     }
 }

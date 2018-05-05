@@ -92,10 +92,33 @@
                     android:textColor="@color/text_black"
                     android:textSize="18sp" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_images"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="1dp">
+
+                    <RelativeLayout
+                        android:layout_width="86dp"
+                        android:layout_height="86dp">
+
+                        <ImageView
+                            android:id="@+id/img_image"
+                            android:layout_width="86dp"
+                            android:layout_height="86dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_add_image" />
+
+                        <ImageView
+                            android:id="@+id/btn_change"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/ic_change" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
 
             <LinearLayout
@@ -120,9 +143,9 @@
                     android:id="@+id/tv_danh_muc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
@@ -142,9 +165,9 @@
                     android:id="@+id/tv_loai_sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
@@ -156,17 +179,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="@string/khu_vuc"
                     android:paddingTop="8dp"
-                    android:text="@string/khu_vuc"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_tinh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
@@ -186,9 +209,9 @@
                     android:id="@+id/tv_huyen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
@@ -208,9 +231,9 @@
                     android:id="@+id/tv_gia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
@@ -230,9 +253,9 @@
                     android:id="@+id/tv_tieu_de"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
@@ -252,9 +275,9 @@
                     android:id="@+id/tv_mo_ta"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:hint="@string/chua_co_thong_tin"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="@string/chua_co_thong_tin"
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 

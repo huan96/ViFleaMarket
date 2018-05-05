@@ -3,7 +3,7 @@ package com.haui.huantd.vifleamarket.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by huand on 02/10/18.
@@ -20,26 +20,11 @@ public class Product implements Parcelable {
     private String huyen;
     private String thoiGian;
     private String chiTiet;
-    private List<String> listImage;
+    private String urlImage;
 
     public Product() {
     }
 
-    public Product(String id, String tieuDe, String idNguoiBan, String gia, String danhMuc
-            , String loaiSP, String tinh, String huyen, String thoiGian, String chiTiet
-            , List<String> listImage) {
-        this.id = id;
-        this.tieuDe = tieuDe;
-        this.idNguoiBan = idNguoiBan;
-        this.gia = gia;
-        this.danhMuc = danhMuc;
-        this.loaiSP = loaiSP;
-        this.tinh = tinh;
-        this.huyen = huyen;
-        this.thoiGian = thoiGian;
-        this.chiTiet = chiTiet;
-        this.listImage = listImage;
-    }
 
     protected Product(Parcel in) {
         id = in.readString();
@@ -52,7 +37,7 @@ public class Product implements Parcelable {
         huyen = in.readString();
         thoiGian = in.readString();
         chiTiet = in.readString();
-        listImage = in.createStringArrayList();
+        urlImage = in.readString();
     }
 
     @Override
@@ -67,7 +52,7 @@ public class Product implements Parcelable {
         dest.writeString(huyen);
         dest.writeString(thoiGian);
         dest.writeString(chiTiet);
-        dest.writeStringList(listImage);
+        dest.writeString(urlImage);
     }
 
     @Override
@@ -167,11 +152,41 @@ public class Product implements Parcelable {
         this.chiTiet = chiTiet;
     }
 
-    public List<String> getListImage() {
-        return listImage;
+    public Product(String id, String tieuDe, String idNguoiBan, String gia, String danhMuc,
+                   String loaiSP, String tinh, String huyen, String thoiGian,
+                   String chiTiet, String urlImage) {
+        this.id = id;
+        this.tieuDe = tieuDe;
+        this.idNguoiBan = idNguoiBan;
+        this.gia = gia;
+        this.danhMuc = danhMuc;
+        this.loaiSP = loaiSP;
+        this.tinh = tinh;
+        this.huyen = huyen;
+        this.thoiGian = thoiGian;
+        this.chiTiet = chiTiet;
+        this.urlImage = urlImage;
     }
 
-    public void setListImage(List<String> listImage) {
-        this.listImage = listImage;
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }
