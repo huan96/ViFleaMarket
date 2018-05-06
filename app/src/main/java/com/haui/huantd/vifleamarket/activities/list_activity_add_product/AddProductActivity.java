@@ -67,6 +67,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         tvMoTa.setOnClickListener(this);
         btnDangBan.setOnClickListener(this);
         imgShow.setOnClickListener(this);
+
     }
 
 
@@ -141,6 +142,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child(Constants.USERS);
         databaseReference2.child(UserID).child(Constants.LIST_POSTS).child(id).setValue(id);
 
+        Toast.makeText(this, "Sản phẩm đã được đăng và chờ phê duyệt", Toast.LENGTH_SHORT).show();
         //reset
         Util.ResessPrefernces(this);
         finish();

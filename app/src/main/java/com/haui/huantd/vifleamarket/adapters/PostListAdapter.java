@@ -48,12 +48,15 @@ public class PostListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                try{
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                     if (loadMore != null)
                         loadMore.onLoadMore();
                     isLoading = true;
+                }}catch (Exception e){
+                    Log.e(TAG,"onScrolled"+e.toString());
                 }
 
             }

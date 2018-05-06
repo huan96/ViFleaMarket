@@ -145,14 +145,15 @@ public class ListFavouriteActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Product product = dataSnapshot.getValue(Product.class);
                 product.setId(dataSnapshot.getKey());
-                Log.e(TAG, "CONFIRM_POST.onChildAdded: ");
-                listProduct.add(product);
-                if (listProductShow.size() < 10) {
-                    listProductShow.add(product);
+                if (listID.contains(product.getId())) {
+                    Log.e(TAG, "CONFIRM_POST.onChildAdded: ");
+                    listProduct.add(product);
+                    if (listProductShow.size() < 10) {
+                        listProductShow.add(product);
+                    }
+                    Log.e("onChildAdded", "xxxxxxxx");
+                    adapter.notifyDataSetChanged();
                 }
-                Log.e("onChildAdded", "xxxxxxxx");
-                adapter.notifyDataSetChanged();
-
             }
 
             @Override

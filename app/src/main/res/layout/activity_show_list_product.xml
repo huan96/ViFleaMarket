@@ -104,6 +104,15 @@
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
                     android:src="@drawable/ic_drop_down" />
+
+                <ImageView
+                    android:id="@+id/btn_clear_khu_vuc"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_cancel"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -137,6 +146,15 @@
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
                     android:src="@drawable/ic_drop_down" />
+
+                <ImageView
+                    android:id="@+id/btn_clear_danhmuc"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_cancel"
+                    android:visibility="gone" />
             </LinearLayout>
 
         </LinearLayout>

@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -51,6 +53,7 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
     private PostListAdapter adapter;
     private String danhMuc, loai, ten, tinh, huyen;
     private LinearLayoutManager layoutManager;
+    private ImageView btnClearKhuVuc, btnClearDanhMuc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +78,19 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
 
         if (!danhMuc.equals("")) {
             tvDanhMuc.setText(danhMuc);
+            btnClearDanhMuc.setVisibility(View.VISIBLE);
         }
         if (!loai.equals("")) {
             tvDanhMuc.setText(loai);
+            btnClearDanhMuc.setVisibility(View.VISIBLE);
         }
         if (!tinh.equals("")) {
             tvKhuVuc.setText(tinh);
+            btnClearKhuVuc.setVisibility(View.VISIBLE);
         }
         if (!huyen.equals("")) {
             tvKhuVuc.setText(huyen);
+            btnClearKhuVuc.setVisibility(View.VISIBLE);
         }
 
         ten = edtSearch.getText().toString();
@@ -104,18 +111,52 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
         rvPost = findViewById(R.id.rcv_post);
         tvDanhMuc = findViewById(R.id.tv_danh_muc);
         tvKhuVuc = findViewById(R.id.tv_khu_vuc);
+        btnClearDanhMuc = findViewById(R.id.btn_clear_danhmuc);
+        btnClearKhuVuc = findViewById(R.id.btn_clear_khu_vuc);
 
         btnBack.setOnClickListener(this);
         btnTimKiem.setOnClickListener(this);
         btnKhuVuc.setOnClickListener(this);
         btnDanhMuc.setOnClickListener(this);
         btnDangBan.setOnClickListener(this);
+        btnClearDanhMuc.setOnClickListener(this);
+        btnClearKhuVuc.setOnClickListener(this);
 
         listProduct = new ArrayList<>();
         listProductShow = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvPost.setLayoutManager(layoutManager);
         firstVisibleInListview = layoutManager.findFirstVisibleItemPosition();
+        setAdapter();
+        rvPost.setAdapter(adapter);
+        setOnScrollRV();
+
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    timKiem();
+                    setAdapter();
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+
+    private void setAdapter() {
         adapter = new PostListAdapter(rvPost, listProductShow, this, new OnItemClick() {
             @Override
             public void onClick(int position) {
@@ -145,19 +186,12 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
             }
         });
         rvPost.setAdapter(adapter);
-        setOnScrollRV();
     }
 
     private void addProduct(DataSnapshot dataSnapshot) {
         try {
             Product product = dataSnapshot.getValue(Product.class);
             product.setId(dataSnapshot.getKey());
-            Log.e(TAG, "addProduct: tinh: " + tinh + " Huyen: " + huyen + " danh muc: "
-                    + danhMuc + " Loai: " + huyen + " ten:" + ten);
-            Log.e(TAG, "addProduct: San Pham : tinh: " + product.getTinh() + " Huyen: "
-                    + product.getHuyen() + " danh muc: " + product.getDanhMuc() + " Loai: " +
-                    product.getLoaiSP() + " ten: " + product.getTieuDe())
-            ;
             if (!danhMuc.equals("") && loai.equals("")) {
                 if (!product.getDanhMuc().equals(danhMuc))
                     return;
@@ -176,7 +210,7 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
             }
             ten = edtSearch.getText().toString();
             if (!ten.equals("")) {
-                if (!product.getTieuDe().equals(ten))
+                if (!product.getTieuDe().contains(ten))
                     return;
             }
             listProduct.add(product);
@@ -260,8 +294,34 @@ public class ShowListProductActivity extends AppCompatActivity implements View.O
             case R.id.btn_dang_ban:
                 showActivityAddProduct();
                 break;
+            case R.id.btn_clear_khu_vuc:
+                clearKhuVuc();
+                break;
+            case R.id.btn_clear_danhmuc:
+                clearDanhMuc();
+                break;
 
         }
+    }
+
+    private void clearDanhMuc() {
+        danhMuc = "";
+        loai = "";
+        PreferencesManager.saveLoaiSP2("", this);
+        PreferencesManager.saveDanhMuc2("", this);
+        tvDanhMuc.setText(R.string.danh_muc);
+        btnClearDanhMuc.setVisibility(View.GONE);
+        timKiem();
+    }
+
+    private void clearKhuVuc() {
+        tinh = "";
+        huyen = "";
+        PreferencesManager.saveTinh2("", this);
+        PreferencesManager.saveHuyen2("", this);
+        tvKhuVuc.setText(R.string.khu_vuc);
+        btnClearKhuVuc.setVisibility(View.GONE);
+        timKiem();
     }
 
 
